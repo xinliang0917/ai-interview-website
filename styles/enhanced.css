@@ -1,0 +1,333 @@
+/**
+ * AI智能面试系统 - 增强UI样式
+ * 为系统添加更具科技感的特效和视觉优化
+ */
+
+/* ===== 全局效果增强 ===== */
+:root {
+  /* 霓虹辉光效果 */
+  --glow-primary: 0 0 10px rgba(0, 208, 255, 0.7), 0 0 20px rgba(0, 208, 255, 0.4);
+  --glow-purple: 0 0 10px rgba(157, 0, 255, 0.7), 0 0 20px rgba(157, 0, 255, 0.4);
+  --glow-green: 0 0 10px rgba(16, 185, 129, 0.7), 0 0 20px rgba(16, 185, 129, 0.4);
+  
+  /* 3D 深度 */
+  --depth-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  
+  /* 玻璃态效果 */
+  --glass-bg: rgba(10, 18, 50, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-filter: blur(15px);
+}
+
+/* 增强卡片视觉效果 */
+.card {
+  backdrop-filter: var(--glass-filter);
+  -webkit-backdrop-filter: var(--glass-filter);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--depth-shadow);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-green));
+  opacity: 0.8;
+  box-shadow: var(--glow-primary);
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, 
+    rgba(0, 208, 255, 0.15),
+    transparent 40%);
+  pointer-events: none;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--depth-shadow), 0 0 8px rgba(0, 208, 255, 0.5);
+}
+
+/* 标题增强 */
+.card h3 {
+  position: relative;
+  padding-left: 1rem;
+  text-shadow: 0 0 10px rgba(0, 208, 255, 0.5);
+  letter-spacing: 0.5px;
+}
+
+.card h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 15px;
+  background: var(--accent-color);
+  border-radius: 5px;
+  box-shadow: var(--glow-primary);
+}
+
+/* ===== 可视化图表增强 ===== */
+
+/* 图表容器增强 */
+.chart-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  height: 100%;
+}
+
+.chart-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(20, 32, 71, 0.7) 0%,
+    rgba(26, 43, 99, 0.7) 100%);
+  z-index: -1;
+}
+
+.chart-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 10% 10%, rgba(0, 208, 255, 0.1), transparent 20%),
+    radial-gradient(circle at 90% 90%, rgba(157, 0, 255, 0.1), transparent 20%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* 进度条/显示条增强 */
+.progress-bar {
+  height: 8px;
+  background: rgba(10, 18, 50, 0.5);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.2), 
+    transparent);
+  animation: progress-shine 2s infinite linear;
+  pointer-events: none;
+}
+
+.progress {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  position: relative;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 8px rgba(0, 208, 255, 0.5);
+}
+
+.progress::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+}
+
+/* 竞争力分析优化 */
+.metric-bar {
+  position: relative;
+  height: 8px;
+  background: rgba(10, 18, 50, 0.5);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.metric-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, 
+    hsl(195, 100%, 50%), 
+    hsl(210, 100%, 60%));
+  position: relative;
+  transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 8px rgba(0, 208, 255, 0.5);
+}
+
+.metric-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(0, 208, 255, 0.5);
+  border-radius: 50%;
+}
+
+.metric-markers .average-marker::after,
+.metric-markers .ideal-marker::after {
+  box-shadow: 0 0 5px currentColor;
+}
+
+/* 实时指标优化 */
+.realtime-metrics .metric {
+  background: rgba(10, 18, 50, 0.6);
+  backdrop-filter: var(--glass-filter);
+  -webkit-backdrop-filter: var(--glass-filter);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--depth-shadow);
+  transition: transform 0.3s ease;
+}
+
+.realtime-metrics .metric:hover {
+  transform: translateY(-3px);
+}
+
+.realtime-metrics .metric-value {
+  background: linear-gradient(135deg, var(--accent-color), var(--primary-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 5px rgba(0, 208, 255, 0.5);
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+/* 总分圆圈增强 */
+.score-circle {
+  box-shadow: 0 0 15px rgba(0, 208, 255, 0.3);
+  background: radial-gradient(circle at center, 
+    rgba(26, 43, 99, 0.8) 0%, 
+    rgba(10, 18, 50, 0.8) 80%);
+}
+
+.score-circle::before {
+  box-shadow: 0 0 20px rgba(0, 208, 255, 0.5);
+}
+
+.score-value {
+  background: linear-gradient(135deg, #ffffff, #94a3b8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(0, 208, 255, 0.8);
+}
+
+/* 动画效果 */
+@keyframes progress-shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* 科技线条效果增强 */
+.tech-lines {
+  opacity: 0.15;
+}
+
+.tech-line {
+  overflow: hidden;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--accent-color) 20%, 
+    var(--accent-color) 80%, 
+    transparent 100%);
+  box-shadow: 0 0 8px var(--accent-color);
+  animation: tech-line-move 8s infinite linear;
+}
+
+@keyframes tech-line-move {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* 视频容器增强 */
+.video-wrapper {
+  position: relative;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 0 20px rgba(0, 65, 170, 0.3);
+  transition: all 0.3s ease;
+}
+
+.video-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, 
+    transparent 0%, 
+    rgba(0, 208, 255, 0.5) 25%, 
+    rgba(157, 0, 255, 0.5) 50%, 
+    rgba(0, 208, 255, 0.5) 75%, 
+    transparent 100%);
+  z-index: -1;
+  border-radius: calc(var(--radius-lg) + 2px);
+  animation: border-flow 3s infinite linear;
+}
+
+@keyframes border-flow {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 300% 0%;
+  }
+}
+
+/* 检测框增强 */
+.detection-box {
+  border: 1px solid rgba(0, 208, 255, 0.7);
+  box-shadow: 0 0 10px rgba(0, 208, 255, 0.5);
+}
+
+.detection-box .scan-line {
+  box-shadow: 0 0 10px var(--accent-color);
+}
+
+/* 增强页面标题 */
+.page-title h2::before {
+  animation: pulse-glow 2s infinite ease-in-out;
+} 

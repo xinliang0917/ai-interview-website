@@ -1,0 +1,16 @@
+{
+  "name": "ai-interview-system",
+  "version": "2.0.0",
+  "description": "基于AI视觉技术的智能面试分析系统",
+  "main": "index.html",
+  "dependencies": {
+    "@tensorflow/tfjs-core": "^4.10.0",
+    "tslib": "^2.6.0",
+    "face-api.js": "^0.22.2"
+  },
+  "scripts": {
+    "start": "http-server -c-1"
+  },
+  "author": "",
+  "license": "ISC"
+} 

@@ -1,0 +1,340 @@
+/**
+ * AI智能面试系统 - 未来科技风格增强
+ * 为整个系统增加超级未来感和科技感效果
+ */
+
+/* 全局光效增强 */
+:root {
+  /* 霓虹辉光效果增强 */
+  --glow-strong: 0 0 15px rgba(0, 208, 255, 0.8), 0 0 30px rgba(0, 208, 255, 0.4);
+  --glow-text: 0 0 5px rgba(0, 208, 255, 0.7);
+  
+  /* 3D 深度增强 */
+  --depth-shadow-strong: 0 15px 35px -10px rgba(0, 0, 0, 0.7);
+  
+  /* 玻璃态效果增强 */
+  --glass-filter-strong: blur(20px);
+  
+  /* 动画时间 */
+  --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 页面全局增强 */
+body {
+  background-attachment: fixed;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* 添加全局动态背景 */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(0, 208, 255, 0.05), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(157, 0, 255, 0.05), transparent 40%);
+  z-index: -10;
+  pointer-events: none;
+  animation: background-shift 20s infinite alternate ease-in-out;
+}
+
+/* 添加动态网格背景 */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(20, 32, 71, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 32, 71, 0.3) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: center center;
+  z-index: -9;
+  opacity: 0.15;
+  pointer-events: none;
+  animation: grid-move 120s infinite linear;
+  transform-origin: center;
+}
+
+/* 顶部导航栏增强 */
+.header {
+  background: rgba(10, 18, 50, 0.8);
+  backdrop-filter: var(--glass-filter-strong);
+  -webkit-backdrop-filter: var(--glass-filter-strong);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  z-index: 1000;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--accent-color) 50%, 
+    transparent 100%);
+  opacity: 0.5;
+  box-shadow: var(--glow-primary);
+}
+
+/* Logo增强 */
+.logo-icon {
+  box-shadow: var(--glow-strong);
+  animation: logo-pulse 3s infinite alternate ease-in-out;
+}
+
+.logo h1 {
+  text-shadow: var(--glow-text);
+  background: linear-gradient(135deg, var(--text-bright) 30%, var(--accent-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 1px;
+}
+
+/* 导航增强 */
+.navigation a {
+  position: relative;
+  transition: all 0.3s var(--transition-bounce);
+}
+
+.navigation a::before {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--accent-color);
+  transform: translateX(-50%);
+  transition: width 0.3s var(--transition-bounce);
+  box-shadow: var(--glow-primary);
+  opacity: 0;
+}
+
+.navigation a:hover::before {
+  width: 80%;
+  opacity: 0.8;
+}
+
+.navigation li.active a::after {
+  box-shadow: var(--glow-primary);
+}
+
+/* 按钮增强 */
+.header-controls button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s var(--transition-bounce);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-controls button::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    var(--neon-blue), 
+    var(--neon-purple), 
+    var(--neon-pink), 
+    var(--neon-blue));
+  background-size: 400% 400%;
+  z-index: -1;
+  border-radius: calc(var(--radius) + 2px);
+  animation: gradient-shift 3s ease infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.header-controls button:hover::before {
+  opacity: 1;
+}
+
+.header-controls .start-interview:hover,
+.header-controls .end-interview:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* 卡片悬停效果全局增强 */
+.card {
+  transition: transform 0.4s var(--transition-bounce), box-shadow 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: var(--depth-shadow-strong), 0 0 15px rgba(0, 208, 255, 0.3);
+}
+
+/* 底部状态栏增强 */
+.footer {
+  background: rgba(10, 18, 50, 0.8);
+  backdrop-filter: var(--glass-filter-strong);
+  -webkit-backdrop-filter: var(--glass-filter-strong);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--accent-color) 50%, 
+    transparent 100%);
+  opacity: 0.5;
+  box-shadow: var(--glow-primary);
+}
+
+.status-icon.online {
+  box-shadow: 0 0 5px var(--success-color), 0 0 10px var(--success-color);
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* 增强科技线条 */
+.tech-lines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.2;
+}
+
+.tech-line {
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--accent-color) 20%, 
+    var(--accent-color) 80%, 
+    transparent 100%);
+  box-shadow: var(--glow-primary);
+  position: absolute;
+  width: 100%;
+  opacity: 0.5;
+  animation: tech-line-move 8s infinite linear;
+}
+
+/* 添加垂直技术线 */
+.tech-lines::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  left: 15%;
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    var(--neon-purple) 30%, 
+    var(--neon-purple) 70%, 
+    transparent 100%);
+  box-shadow: 0 0 10px var(--neon-purple);
+  animation: tech-line-vertical 10s infinite linear;
+}
+
+.tech-lines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  right: 15%;
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    var(--neon-green) 30%, 
+    var(--neon-green) 70%, 
+    transparent 100%);
+  box-shadow: 0 0 10px var(--neon-green);
+  animation: tech-line-vertical 12s infinite linear reverse;
+}
+
+/* 增强全局滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  background: var(--bg-darkest);
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 18, 50, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--accent-color), var(--primary-color));
+  border-radius: var(--radius-full);
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, var(--neon-blue), var(--neon-purple));
+  box-shadow: 0 0 8px var(--accent-color);
+}
+
+/* 动画定义 */
+@keyframes background-shift {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+@keyframes grid-move {
+  0% {
+    transform: scale(1.5) rotate(0deg);
+  }
+  100% {
+    transform: scale(1.5) rotate(360deg);
+  }
+}
+
+@keyframes logo-pulse {
+  0% {
+    box-shadow: 0 0 10px rgba(0, 208, 255, 0.7), 0 0 20px rgba(0, 208, 255, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(0, 208, 255, 0.9), 0 0 30px rgba(0, 208, 255, 0.6);
+  }
+}
+
+@keyframes tech-line-vertical {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* 优化移动设备显示 */
+@media (max-width: 768px) {
+  body::after {
+    background-size: 30px 30px;
+  }
+  
+  .tech-lines::after,
+  .tech-lines::before {
+    display: none;
+  }
+} 

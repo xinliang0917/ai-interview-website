@@ -1,0 +1,314 @@
+/**
+ * AI智能面试系统 - 视频容器增强样式
+ * 为视频区域和面部检测添加超级科技感视觉效果
+ */
+
+/* 视频容器增强 */
+.video-container {
+  position: relative;
+  transform: perspective(1000px) rotateX(2deg);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.video-container:hover {
+  transform: perspective(1000px) rotateX(0deg) scale(1.02);
+}
+
+.video-container::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: linear-gradient(135deg, 
+    var(--neon-blue) 0%, 
+    var(--neon-purple) 50%, 
+    var(--neon-blue) 100%);
+  background-size: 400% 400%;
+  animation: gradient-shift 5s ease infinite;
+  border-radius: calc(var(--radius-lg) + 5px);
+  opacity: 0.3;
+  filter: blur(5px);
+  z-index: -2;
+}
+
+.video-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-darker);
+  border-radius: var(--radius-lg);
+  z-index: -1;
+}
+
+/* 视频播放区域增强 */
+.video-wrapper {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-wrapper:hover {
+  box-shadow: 0 15px 40px -5px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 208, 255, 0.5);
+}
+
+/* 视频界面增强 */
+video {
+  border-radius: var(--radius-md);
+  transition: all 0.3s ease;
+  filter: saturate(1.1) contrast(1.05);
+}
+
+/* 视频叠加层增强 */
+.video-overlay {
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  background: radial-gradient(
+    circle at center,
+    transparent 40%,
+    rgba(5, 12, 36, 0.2) 100%
+  );
+}
+
+/* 增强检测框效果 */
+.detection-box {
+  border: 1px solid rgba(0, 208, 255, 0.7);
+  box-shadow: 0 0 10px rgba(0, 208, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.detection-box::before,
+.detection-box::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(0, 208, 255, 0.8);
+  border-radius: 1px;
+  box-shadow: 0 0 10px rgba(0, 208, 255, 0.6);
+}
+
+.detection-box::before {
+  top: -2px;
+  left: -2px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.detection-box::after {
+  bottom: -2px;
+  right: -2px;
+  border-left: none;
+  border-top: none;
+}
+
+/* 添加四个角 */
+.detection-box .corner-tl,
+.detection-box .corner-tr,
+.detection-box .corner-bl,
+.detection-box .corner-br {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 8px var(--accent-color);
+}
+
+.detection-box .corner-tl {
+  top: 0;
+  left: 0;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+
+.detection-box .corner-tr {
+  top: 0;
+  right: 0;
+  border-top: 2px solid;
+  border-right: 2px solid;
+}
+
+.detection-box .corner-bl {
+  bottom: 0;
+  left: 0;
+  border-bottom: 2px solid;
+  border-left: 2px solid;
+}
+
+.detection-box .corner-br {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}
+
+/* 增强扫描线效果 */
+.detection-box .scan-line {
+  background: linear-gradient(to bottom, 
+    transparent, 
+    rgba(0, 208, 255, 0.8) 50%, 
+    transparent
+  );
+  box-shadow: 0 0 15px rgba(0, 208, 255, 0.7);
+  height: 3px;
+  animation: scan-move 1.5s ease-in-out infinite;
+}
+
+/* 情绪标签增强 */
+.emotion-label {
+  background: rgba(10, 18, 50, 0.7);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  color: var(--text-bright);
+  font-weight: 500;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 5px rgba(0, 208, 255, 0.5);
+}
+
+.emotion-label span {
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+}
+
+/* 实时指标增强 */
+.realtime-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.realtime-metrics .metric {
+  background: linear-gradient(135deg, 
+    rgba(20, 32, 71, 0.7),
+    rgba(10, 18, 50, 0.7)
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  padding: 4px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.realtime-metrics .metric::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(0, 208, 255, 0.8), 
+    transparent);
+  box-shadow: 0 0 10px rgba(0, 208, 255, 0.5);
+}
+
+.realtime-metrics .metric::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, 
+    rgba(0, 208, 255, 0.1), 
+    transparent 70%);
+  pointer-events: none;
+}
+
+.realtime-metrics .metric:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 208, 255, 0.3);
+}
+
+.realtime-metrics .metric-label {
+  color: var(--text-secondary);
+  font-size: 0.6rem;
+  margin-bottom: 1px;
+  letter-spacing: 0.5px;
+}
+
+.realtime-metrics .metric-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, 
+    var(--accent-color), 
+    var(--primary-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(0, 208, 255, 0.3);
+  line-height: 0.9;
+}
+
+/* 动画定义 */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes scan-move {
+  0%, 100% {
+    top: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* 优化移动设备显示 */
+@media (max-width: 768px) {
+  .video-container {
+    transform: perspective(800px) rotateX(0deg);
+  }
+  
+  .realtime-metrics {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+  }
+  
+  .realtime-metrics .metric-value {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .realtime-metrics .metric-label {
+    font-size: 0.55rem;
+  }
+  
+  .realtime-metrics .metric-value {
+    font-size: 1.3rem;
+  }
+} 

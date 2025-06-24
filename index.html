@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI智能面试分析系统 | 超级科技感可视化大屏</title>
+    <meta name="description" content="基于AI视觉技术的智能面试分析系统，实时面部情绪识别和数据可视化，采用未来科技风格设计">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/notifications.css">
+    <!-- 引入增强UI样式 -->
+    <link rel="stylesheet" href="styles/enhanced.css">
+    <!-- 引入视频增强样式 -->
+    <link rel="stylesheet" href="styles/video-enhanced.css">
+    <!-- 引入视频清晰样式，覆盖之前的效果 -->
+    <link rel="stylesheet" href="styles/video-clear.css">
+    <!-- 引入未来风格增强 -->
+    <link rel="stylesheet" href="styles/futuristic.css">
+    <!-- 引入高级UI样式增强 -->
+    <link rel="stylesheet" href="styles/advanced-ui.css">
+    <!-- 引入个人主页样式 -->
+    <link rel="stylesheet" href="styles/profile.css">
+    <!-- 引入字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- 引入图表库 -->
+    <script defer src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+    <!-- 引入人脸检测库 - 更新为更可靠的CDN -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.12/dist/face-api.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h1>AI智能面试分析系统</h1>
+            </div>
+            <nav class="navigation">
+                <ul>
+                    <li class="active"><a href="#dashboard">面试大屏</a></li>
+                    <li><a href="#history">历史记录</a></li>
+                    <li><a href="#profile">个人主页</a></li>
+                    <li><a href="#settings">系统设置</a></li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <div class="avatar" id="user-avatar"></div>
+                <span class="username" id="username">未登录</span>
+                <div class="header-controls">
+                    <button class="start-interview">开始面试</button>
+                    <button class="end-interview" disabled>结束面试</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <div class="dashboard active" id="dashboard">
+                <div class="interview-grid">
+                    <!-- 情绪变化趋势 -->
+                    <div class="card emotion-trend">
+                        <h3>情绪变化趋势</h3>
+                        <div class="chart-container" id="emotion-chart"></div>
+                    </div>
+
+                    <!-- 视频区域 -->
+                    <section class="video-container">
+                        <div class="video-wrapper">
+                            <video id="webcam" autoplay playsinline muted></video>
+                            <div class="video-overlay">
+                                <div class="detection-box">
+                                    <div class="corner-tl"></div>
+                                    <div class="corner-tr"></div>
+                                    <div class="corner-bl"></div>
+                                    <div class="corner-br"></div>
+                                    <div class="scan-line"></div>
+                                </div>
+                                <div class="emotion-label">情绪: <span id="emotion">未检测</span></div>
+                            </div>
+                        </div>
+                        <div class="realtime-metrics">
+                            <div class="metric">
+                                <div class="metric-label">注意力指数</div>
+                                <div class="metric-value" id="attention-score">95</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">紧张程度</div>
+                                <div class="metric-value" id="nervousness-score">23</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">自信指数</div>
+                                <div class="metric-value" id="confidence-score">87</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 语音分析 -->
+                    <div class="card speech-analysis">
+                        <h3>语音分析</h3>
+                        <div class="chart-container" id="speech-chart"></div>
+                        <div class="metrics-grid">
+                            <div class="metric-item">
+                                <span class="label">语速</span>
+                                <span class="value" id="speech-rate">适中</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="label">停顿频率</span>
+                                <span class="value" id="pause-frequency">低</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="label">声音清晰度</span>
+                                <span class="value" id="voice-clarity">高</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 竞争力分析模块 -->
+                <section class="competitive-analysis">
+                    <div class="card analysis-card">
+                        <div class="analysis-content">
+                            <div class="radar-chart-wrapper">
+                                <div class="radar-chart-container" id="competitive-radar-chart"></div>
+                            </div>
+                            <div class="analysis-details">
+                                <div class="analysis-metrics">
+                                    <div class="metric-row">
+                                        <div class="metric-item">
+                                            <div class="metric-header">
+                                                <span class="metric-name">专业知识</span>
+                                                <span class="metric-score">85</span>
+                                            </div>
+                                            <div class="metric-bar-container">
+                                                <div class="metric-bar">
+                                                    <div class="metric-fill" style="width: 85%"></div>
+                                                </div>
+                                                <div class="metric-markers">
+                                                    <span class="average-marker" style="left: 70%"></span>
+                                                    <span class="ideal-marker" style="left: 90%"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="metric-item">
+                                            <div class="metric-header">
+                                                <span class="metric-name">技能匹配</span>
+                                                <span class="metric-score">78</span>
+                                            </div>
+                                            <div class="metric-bar-container">
+                                                <div class="metric-bar">
+                                                    <div class="metric-fill" style="width: 78%"></div>
+                                                </div>
+                                                <div class="metric-markers">
+                                                    <span class="average-marker" style="left: 65%"></span>
+                                                    <span class="ideal-marker" style="left: 85%"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-row">
+                                        <div class="metric-item">
+                                            <div class="metric-header">
+                                                <span class="metric-name">语言表达</span>
+                                                <span class="metric-score">92</span>
+                                            </div>
+                                            <div class="metric-bar-container">
+                                                <div class="metric-bar">
+                                                    <div class="metric-fill" style="width: 92%"></div>
+                                                </div>
+                                                <div class="metric-markers">
+                                                    <span class="average-marker" style="left: 75%"></span>
+                                                    <span class="ideal-marker" style="left: 88%"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="metric-item">
+                                            <div class="metric-header">
+                                                <span class="metric-name">逻辑思考</span>
+                                                <span class="metric-score">88</span>
+                                            </div>
+                                            <div class="metric-bar-container">
+                                                <div class="metric-bar">
+                                                    <div class="metric-fill" style="width: 88%"></div>
+                                                </div>
+                                                <div class="metric-markers">
+                                                    <span class="average-marker" style="left: 72%"></span>
+                                                    <span class="ideal-marker" style="left: 90%"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-row">
+                                        <div class="metric-item">
+                                            <div class="metric-header">
+                                                <span class="metric-name">创新思维</span>
+                                                <span class="metric-score">82</span>
+                                            </div>
+                                            <div class="metric-bar-container">
+                                                <div class="metric-bar">
+                                                    <div class="metric-fill" style="width: 82%"></div>
+                                                </div>
+                                                <div class="metric-markers">
+                                                    <span class="average-marker" style="left: 68%"></span>
+                                                    <span class="ideal-marker" style="left: 92%"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="metric-item">
+                                            <div class="metric-header">
+                                                <span class="metric-name">应变抗压</span>
+                                                <span class="metric-score">79</span>
+                                            </div>
+                                            <div class="metric-bar-container">
+                                                <div class="metric-bar">
+                                                    <div class="metric-fill" style="width: 79%"></div>
+                                                </div>
+                                                <div class="metric-markers">
+                                                    <span class="average-marker" style="left: 70%"></span>
+                                                    <span class="ideal-marker" style="left: 85%"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 面试总结区域 -->
+                <section class="interview-summary">
+                    <div class="card summary-card">
+                        <h3>面试整体评估</h3>
+                        <div class="summary-content">
+                            <div class="radar-chart-container">
+                                <div id="radar-chart"></div>
+                            </div>
+                            <div class="overall-score">
+                                <div class="score-circle">
+                                    <span class="score-value">86</span>
+                                    <span class="score-label">总分</span>
+                                </div>
+                                <div class="score-breakdown">
+                                    <div class="score-item">
+                                        <span class="label">专业能力</span>
+                                        <div class="progress-bar">
+                                            <div class="progress" style="width: 85%"></div>
+                                        </div>
+                                        <span class="value">85%</span>
+                                    </div>
+                                    <div class="score-item">
+                                        <span class="label">沟通表达</span>
+                                        <div class="progress-bar">
+                                            <div class="progress" style="width: 92%"></div>
+                                        </div>
+                                        <span class="value">92%</span>
+                                    </div>
+                                    <div class="score-item">
+                                        <span class="label">逻辑思维</span>
+                                        <div class="progress-bar">
+                                            <div class="progress" style="width: 88%"></div>
+                                        </div>
+                                        <span class="value">88%</span>
+                                    </div>
+                                    <div class="score-item">
+                                        <span class="label">应变能力</span>
+                                        <div class="progress-bar">
+                                            <div class="progress" style="width: 79%"></div>
+                                        </div>
+                                        <span class="value">79%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="history" id="history">
+                <!-- 历史记录内容 -->
+                <div class="page-title">
+                    <h2>面试历史记录</h2>
+                    <div class="search-container">
+                        <input type="text" placeholder="搜索面试记录..." class="search-input">
+                    </div>
+                </div>
+                <div class="history-list">
+                    <!-- 这里将通过JavaScript动态加载历史记录 -->
+                </div>
+            </div>
+
+            <!-- 个人主页 -->
+            <div class="profile" id="profile">
+                <div class="page-title">
+                    <h2>个人主页</h2>
+                    <div class="profile-actions">
+                        <button class="profile-save-btn" id="save-profile">保存更新</button>
+                    </div>
+                </div>
+                <div class="profile-container">
+                    <!-- 基本信息 -->
+                    <div class="profile-section" id="basic-info">
+                        <h3>基本信息</h3>
+                        <div class="profile-form">
+                            <div class="profile-form-row">
+                                <div class="profile-form-group half-width">
+                                    <label for="profile-name">姓名</label>
+                                    <input type="text" id="profile-name" placeholder="请输入姓名">
+                                </div>
+                                <div class="profile-form-group half-width">
+                                    <label for="profile-gender">性别</label>
+                                    <select id="profile-gender">
+                                        <option value="">请选择</option>
+                                        <option value="male">男</option>
+                                        <option value="female">女</option>
+                                        <option value="other">其他</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="profile-form-row">
+                                <div class="profile-form-group half-width">
+                                    <label for="profile-phone">手机号</label>
+                                    <input type="tel" id="profile-phone" placeholder="请输入手机号">
+                                </div>
+                                <div class="profile-form-group half-width">
+                                    <label for="profile-email">邮箱</label>
+                                    <input type="email" id="profile-email" placeholder="请输入邮箱">
+                                </div>
+                            </div>
+                            <div class="profile-form-row">
+                                <div class="profile-form-group half-width">
+                                    <label for="profile-birthday">出生日期</label>
+                                    <input type="date" id="profile-birthday">
+                                </div>
+                                <div class="profile-form-group half-width">
+                                    <label for="profile-education">最高学历</label>
+                                    <select id="profile-education">
+                                        <option value="">请选择</option>
+                                        <option value="高中">高中</option>
+                                        <option value="大专">大专</option>
+                                        <option value="本科">本科</option>
+                                        <option value="硕士">硕士</option>
+                                        <option value="博士">博士</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="profile-form-group">
+                                <label for="profile-address">现居地址</label>
+                                <input type="text" id="profile-address" placeholder="请输入现居地址">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 求职意向 -->
+                    <div class="profile-section" id="job-intention">
+                        <h3>求职意向</h3>
+                        <div class="profile-form">
+                            <div class="profile-form-row">
+                                <div class="profile-form-group half-width">
+                                    <label for="profile-position">期望职位</label>
+                                    <input type="text" id="profile-position" placeholder="请输入期望职位">
+                                </div>
+                                <div class="profile-form-group half-width">
+                                    <label for="profile-industry">期望行业</label>
+                                    <input type="text" id="profile-industry" placeholder="请输入期望行业">
+                                </div>
+                            </div>
+                            <div class="profile-form-row">
+                                <div class="profile-form-group half-width">
+                                    <label for="profile-salary">期望薪资</label>
+                                    <select id="profile-salary">
+                                        <option value="">请选择</option>
+                                        <option value="1">3k以下</option>
+                                        <option value="2">3k-5k</option>
+                                        <option value="3">5k-10k</option>
+                                        <option value="4">10k-15k</option>
+                                        <option value="5">15k-20k</option>
+                                        <option value="6">20k-30k</option>
+                                        <option value="7">30k以上</option>
+                                    </select>
+                                </div>
+                                <div class="profile-form-group half-width">
+                                    <label for="profile-work-type">工作类型</label>
+                                    <select id="profile-work-type">
+                                        <option value="">请选择</option>
+                                        <option value="full-time">全职</option>
+                                        <option value="part-time">兼职</option>
+                                        <option value="intern">实习</option>
+                                        <option value="remote">远程</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="profile-form-group">
+                                <label for="profile-job-location">期望工作地点</label>
+                                <input type="text" id="profile-job-location" placeholder="请输入期望工作地点">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 技能特长 -->
+                    <div class="profile-section" id="skills">
+                        <h3>技能特长</h3>
+                        <div class="profile-form" id="skills-container">
+                            <div class="skill-item">
+                                <div class="profile-form-row">
+                                    <div class="profile-form-group half-width">
+                                        <label for="skill-name-1">技能名称</label>
+                                        <input type="text" id="skill-name-1" placeholder="如：Java编程">
+                                    </div>
+                                    <div class="profile-form-group half-width">
+                                        <label for="skill-level-1">熟练度</label>
+                                        <div class="skill-level">
+                                            <input type="range" id="skill-level-1" class="range-input" min="0" max="100" value="75">
+                                            <span class="skill-percent">75%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="profile-form-group">
+                                    <label for="skill-desc-1">技能描述</label>
+                                    <textarea id="skill-desc-1" placeholder="请描述该技能的具体情况和掌握程度"></textarea>
+                                </div>
+                            </div>
+                            <div class="add-experience" id="add-skill">
+                                添加技能
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 获奖证书 -->
+                    <div class="profile-section" id="certificates">
+                        <h3>获奖证书</h3>
+                        <div class="profile-form" id="certificates-container">
+                            <div class="experience-item">
+                                <div class="profile-form-row">
+                                    <div class="profile-form-group half-width">
+                                        <label for="cert-name-1">证书名称</label>
+                                        <input type="text" id="cert-name-1" placeholder="如：英语四级证书">
+                                    </div>
+                                    <div class="profile-form-group half-width">
+                                        <label for="cert-date-1">获得日期</label>
+                                        <input type="date" id="cert-date-1">
+                                    </div>
+                                </div>
+                                <div class="profile-form-group">
+                                    <label for="cert-desc-1">证书描述</label>
+                                    <textarea id="cert-desc-1" placeholder="请描述获得该证书的背景和含义"></textarea>
+                                </div>
+                            </div>
+                            <div class="add-experience" id="add-certificate">
+                                添加证书
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 实习经历 -->
+                    <div class="profile-section" id="internships">
+                        <h3>实习经历</h3>
+                        <div class="profile-form" id="internships-container">
+                            <div class="experience-item">
+                                <div class="profile-form-row">
+                                    <div class="profile-form-group half-width">
+                                        <label for="intern-company-1">公司名称</label>
+                                        <input type="text" id="intern-company-1" placeholder="如：XX科技有限公司">
+                                    </div>
+                                    <div class="profile-form-group half-width">
+                                        <label for="intern-position-1">职位</label>
+                                        <input type="text" id="intern-position-1" placeholder="如：前端开发实习生">
+                                    </div>
+                                </div>
+                                <div class="profile-form-row">
+                                    <div class="profile-form-group half-width">
+                                        <label for="intern-start-1">开始日期</label>
+                                        <input type="date" id="intern-start-1">
+                                    </div>
+                                    <div class="profile-form-group half-width">
+                                        <label for="intern-end-1">结束日期</label>
+                                        <input type="date" id="intern-end-1">
+                                    </div>
+                                </div>
+                                <div class="profile-form-group">
+                                    <label for="intern-desc-1">工作描述</label>
+                                    <textarea id="intern-desc-1" placeholder="请描述你的主要工作内容和成就"></textarea>
+                                </div>
+                            </div>
+                            <div class="add-experience" id="add-internship">
+                                添加实习经历
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 项目经历 -->
+                    <div class="profile-section" id="projects">
+                        <h3>项目经历</h3>
+                        <div class="profile-form" id="projects-container">
+                            <div class="experience-item">
+                                <div class="profile-form-row">
+                                    <div class="profile-form-group half-width">
+                                        <label for="project-name-1">项目名称</label>
+                                        <input type="text" id="project-name-1" placeholder="如：电商平台开发">
+                                    </div>
+                                    <div class="profile-form-group half-width">
+                                        <label for="project-role-1">担任角色</label>
+                                        <input type="text" id="project-role-1" placeholder="如：前端开发工程师">
+                                    </div>
+                                </div>
+                                <div class="profile-form-row">
+                                    <div class="profile-form-group half-width">
+                                        <label for="project-start-1">开始日期</label>
+                                        <input type="date" id="project-start-1">
+                                    </div>
+                                    <div class="profile-form-group half-width">
+                                        <label for="project-end-1">结束日期</label>
+                                        <input type="date" id="project-end-1">
+                                    </div>
+                                </div>
+                                <div class="profile-form-group">
+                                    <label for="project-desc-1">项目描述</label>
+                                    <textarea id="project-desc-1" placeholder="请描述项目的背景、你的职责和成就"></textarea>
+                                </div>
+                            </div>
+                            <div class="add-experience" id="add-project">
+                                添加项目经历
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 工作经历 -->
+                    <div class="profile-section" id="work-experience">
+                        <h3>工作经历</h3>
+                        <div class="profile-form" id="work-container">
+                            <div class="experience-item">
+                                <div class="profile-form-row">
+                                    <div class="profile-form-group half-width">
+                                        <label for="work-company-1">公司名称</label>
+                                        <input type="text" id="work-company-1" placeholder="如：XX科技有限公司">
+                                    </div>
+                                    <div class="profile-form-group half-width">
+                                        <label for="work-position-1">职位</label>
+                                        <input type="text" id="work-position-1" placeholder="如：前端开发工程师">
+                                    </div>
+                                </div>
+                                <div class="profile-form-row">
+                                    <div class="profile-form-group half-width">
+                                        <label for="work-start-1">开始日期</label>
+                                        <input type="date" id="work-start-1">
+                                    </div>
+                                    <div class="profile-form-group half-width">
+                                        <label for="work-end-1">结束日期</label>
+                                        <input type="date" id="work-end-1">
+                                    </div>
+                                </div>
+                                <div class="profile-form-group">
+                                    <label for="work-desc-1">工作描述</label>
+                                    <textarea id="work-desc-1" placeholder="请描述你的主要工作内容和成就"></textarea>
+                                </div>
+                            </div>
+                            <div class="add-experience" id="add-work">
+                                添加工作经历
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings" id="settings">
+                <!-- 设置内容 -->
+                <div class="page-title">
+                    <h2>系统设置</h2>
+                </div>
+                <div class="settings-container">
+                    <div class="settings-group">
+                        <h3>基本设置</h3>
+                        <div class="setting-item">
+                            <label for="camera-select">选择摄像头</label>
+                            <select id="camera-select">
+                                <option value="default">默认摄像头</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="microphone-select">选择麦克风</label>
+                            <select id="microphone-select">
+                                <option value="default">默认麦克风</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="language-select">系统语言</label>
+                            <select id="language-select">
+                                <option value="zh-CN">简体中文</option>
+                                <option value="en-US">English</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="settings-group">
+                        <h3>AI分析设置</h3>
+                        <div class="setting-item checkbox">
+                            <input type="checkbox" id="emotion-detection" checked>
+                            <label for="emotion-detection">情绪检测</label>
+                        </div>
+                        <div class="setting-item checkbox">
+                            <input type="checkbox" id="speech-analysis" checked>
+                            <label for="speech-analysis">语音分析</label>
+                        </div>
+                        <div class="setting-item checkbox">
+                            <input type="checkbox" id="gesture-analysis" checked>
+                            <label for="gesture-analysis">肢体语言分析</label>
+                        </div>
+                        <div class="setting-item range">
+                            <label for="analysis-sensitivity">分析敏感度</label>
+                            <input type="range" id="analysis-sensitivity" min="1" max="10" value="7">
+                            <div class="range-labels">
+                                <span>低</span>
+                                <span>高</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 底部状态栏 -->
+        <footer class="footer">
+            <div class="status">
+                <span class="status-icon online"></span>
+                <span class="status-text">系统状态: 在线</span>
+            </div>
+            <div class="version">
+                <span>版本: 2.0.0</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 通知容器 -->
+    <div class="notifications-container"></div>
+
+    <!-- 开始面试模态框 -->
+    <div class="modal" id="start-interview-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>开始新面试</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="interview-name">面试名称</label>
+                    <input type="text" id="interview-name" placeholder="输入面试名称">
+                </div>
+                <div class="form-group">
+                    <label for="position-name">应聘职位</label>
+                    <input type="text" id="position-name" placeholder="输入应聘职位">
+                </div>
+                <div class="form-group">
+                    <label for="interview-mode">面试模式</label>
+                    <select id="interview-mode">
+                        <option value="technical">技术面试</option>
+                        <option value="hr">HR面试</option>
+                        <option value="comprehensive">综合面试</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn">取消</button>
+                <button class="confirm-btn">确认</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 登录/注册模态框 -->
+    <div class="auth-modal" id="auth-modal">
+        <div class="auth-container">
+            <button class="close-auth" id="close-auth">&times;</button>
+            <div class="auth-decoration"></div>
+            
+            <div class="auth-header">
+                <h2>用户账户</h2>
+                <p>登录或注册以获得更多功能</p>
+            </div>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">登录</div>
+                <div class="auth-tab" data-tab="register">注册</div>
+            </div>
+            
+            <!-- 登录表单 -->
+            <div class="auth-form" id="login-form">
+                <div class="auth-form-group">
+                    <label for="login-username">用户名/手机号</label>
+                    <input type="text" id="login-username" placeholder="请输入用户名或手机号">
+                </div>
+                <div class="auth-form-group">
+                    <label for="login-password">密码</label>
+                    <input type="password" id="login-password" placeholder="请输入密码">
+                </div>
+                <button class="auth-submit" id="login-btn">登录</button>
+                <div class="auth-form-footer">
+                    <span>忘记密码? </span>
+                    <a href="#" id="forgot-password">点击这里</a>
+                </div>
+            </div>
+            
+            <!-- 注册表单 -->
+            <div class="auth-form" id="register-form" style="display: none;">
+                <div class="auth-form-group">
+                    <label for="register-phone">手机号</label>
+                    <input type="tel" id="register-phone" placeholder="请输入手机号">
+                </div>
+                <div class="auth-form-group">
+                    <label for="register-username">用户名</label>
+                    <input type="text" id="register-username" placeholder="请设置用户名">
+                </div>
+                <div class="auth-form-group">
+                    <label for="register-password">密码</label>
+                    <input type="password" id="register-password" placeholder="请设置密码">
+                </div>
+                <div class="auth-form-group">
+                    <label for="register-confirm">确认密码</label>
+                    <input type="password" id="register-confirm" placeholder="请确认密码">
+                </div>
+                <button class="auth-submit" id="register-btn">注册</button>
+                <div class="auth-form-footer">
+                    <span>已有账号? </span>
+                    <a href="#" id="to-login">立即登录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载脚本 -->
+    <script src="js/app.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/face-detection.js"></script>
+    <!-- 加载增强图表效果脚本 -->
+    <script src="js/enhanced-charts.js"></script>
+    <!-- 加载高级图表特效 -->
+    <script src="js/chart-fx.js"></script>
+    <!-- 加载悬停交互效果 -->
+    <script src="js/hover-effects.js"></script>
+    <!-- 加载个人主页和登录逻辑 -->
+    <script src="js/profile.js"></script>
+    <script src="js/auth.js"></script>
+
+    <!-- 科技元素背景效果 -->
+    <div class="tech-lines">
+        <div class="tech-line" style="top: 20%;"></div>
+        <div class="tech-line" style="top: 40%;"></div>
+        <div class="tech-line" style="top: 60%;"></div>
+        <div class="tech-line" style="top: 80%;"></div>
+    </div>
+</body>
+</html> 

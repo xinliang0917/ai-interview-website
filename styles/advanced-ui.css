@@ -1,0 +1,461 @@
+/**
+ * AI智能面试系统 - 高级UI增强
+ * 进一步优化静态效果、可视化图表和悬停交互
+ */
+
+/* ===== 全局高级效果 ===== */
+:root {
+  /* 高级光效 */
+  --advanced-glow: 0 0 20px rgba(0, 208, 255, 0.9), 0 0 40px rgba(0, 208, 255, 0.4);
+  --advanced-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+  --advanced-inset: inset 0 0 20px rgba(0, 208, 255, 0.2);
+  
+  /* 高级渐变 */
+  --gradient-blue-purple: linear-gradient(135deg, #00c2ff 0%, #7000ff 100%);
+  --gradient-blue-cyan: linear-gradient(135deg, #0052cc 0%, #00d0ff 100%);
+  --gradient-green-blue: linear-gradient(135deg, #00ffc8 0%, #00c2ff 100%);
+  
+  /* 动画曲线 */
+  --bounce-animation: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --smooth-animation: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* ===== 静态效果增强 ===== */
+
+/* 卡片高级效果 */
+.card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--advanced-shadow), var(--advanced-inset);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s var(--bounce-animation);
+}
+
+/* 卡片边框光效 */
+.card::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: var(--gradient-blue-purple);
+  z-index: -1;
+  opacity: 0.5;
+  pointer-events: none;
+  transform: scale(1.01);
+  filter: blur(5px);
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+
+/* 卡片内光晕 */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 70% 20%, 
+    rgba(0, 208, 255, 0.15) 0%, 
+    transparent 50%);
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* 标题装饰效果 */
+.card h3 {
+  background: var(--gradient-blue-cyan);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(0, 208, 255, 0.3);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.card h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 50px;
+  height: 2px;
+  background: var(--gradient-blue-cyan);
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(0, 208, 255, 0.8);
+}
+
+/* 增强主容器效果 */
+.main-content {
+  position: relative;
+  z-index: 1;
+}
+
+.main-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, 
+    rgba(0, 208, 255, 0.05) 0%, 
+    transparent 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* 增强背景动态效果 */
+body::before {
+  animation: subtle-pulse 15s infinite alternate ease-in-out;
+}
+
+/* ===== 可视化图表和显示条增强 ===== */
+
+/* 图表容器高级效果 */
+.chart-container {
+  position: relative;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  transition: all 0.4s var(--bounce-animation);
+}
+
+.chart-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    rgba(26, 43, 99, 0.4) 0%,
+    rgba(10, 18, 50, 0.7) 100%);
+  z-index: -2;
+}
+
+.chart-container::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, 
+    rgba(0, 208, 255, 0.1) 0%, 
+    transparent 60%);
+  opacity: 0.5;
+  animation: rotate-gradient 60s linear infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* 高级进度条 */
+.progress-bar {
+  height: 10px;
+  background: rgba(10, 18, 50, 0.5);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+  position: relative;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.progress {
+  height: 100%;
+  background: var(--gradient-blue-cyan);
+  background-size: 200% 100%;
+  border-radius: 20px;
+  position: relative;
+  animation: gradient-move 3s infinite alternate ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 208, 255, 0.5);
+}
+
+/* 发光效果 */
+.progress::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 15px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  filter: blur(5px);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 208, 255, 0.8);
+}
+
+/* 进度条闪光效果 */
+.progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.4) 50%, 
+    transparent 100%);
+  animation: shine-effect 3s infinite;
+}
+
+/* 分析指标条 */
+.metric-bar {
+  height: 10px;
+  background: rgba(10, 18, 50, 0.5);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.metric-fill {
+  height: 100%;
+  border-radius: 20px;
+  background-size: 200% 100%;
+  animation: gradient-move 3s infinite alternate ease-in-out;
+  position: relative;
+  transition: width 0.8s var(--bounce-animation);
+}
+
+/* 根据指标类型设置不同颜色 */
+.metric-item:nth-child(1) .metric-fill {
+  background: linear-gradient(90deg, #3b82f6, #00d0ff);
+}
+
+.metric-item:nth-child(2) .metric-fill {
+  background: linear-gradient(90deg, #8b5cf6, #d946ef);
+}
+
+.metric-item:nth-child(3) .metric-fill {
+  background: linear-gradient(90deg, #10b981, #34d399);
+}
+
+.metric-item:nth-child(4) .metric-fill {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.metric-item:nth-child(5) .metric-fill {
+  background: linear-gradient(90deg, #06b6d4, #22d3ee);
+}
+
+.metric-item:nth-child(6) .metric-fill {
+  background: linear-gradient(90deg, #8b5cf6, #a78bfa);
+}
+
+/* 指标名称和分数 */
+.metric-header {
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.metric-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.metric-score {
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: var(--gradient-blue-cyan);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 8px rgba(0, 208, 255, 0.3);
+}
+
+/* 实时指标 */
+.realtime-metrics .metric {
+  background: rgba(10, 18, 50, 0.4);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.realtime-metrics .metric::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-blue-cyan);
+  opacity: 0.8;
+  box-shadow: 0 0 10px rgba(0, 208, 255, 0.5);
+}
+
+.realtime-metrics .metric-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: var(--gradient-blue-cyan);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(0, 208, 255, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+/* 总分圆圈增强 */
+.score-circle {
+  position: relative;
+  background: radial-gradient(circle at center, 
+    rgba(26, 43, 99, 0.4) 0%, 
+    rgba(10, 18, 50, 0.7) 80%);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), var(--advanced-inset);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.score-circle::before {
+  box-shadow: 0 0 30px rgba(0, 208, 255, 0.8);
+  animation: rotate-gradient 10s linear infinite;
+}
+
+.score-circle::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, 
+    rgba(0, 208, 255, 0.2) 0%, 
+    transparent 50%);
+  pointer-events: none;
+}
+
+.score-value {
+  position: relative;
+  font-weight: 700;
+  background: var(--gradient-blue-cyan);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 15px rgba(0, 208, 255, 0.5);
+}
+
+/* ===== 鼠标悬停效果增强 ===== */
+
+/* 卡片悬停效果 */
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3), var(--advanced-inset);
+}
+
+.card:hover::before {
+  opacity: 0.8;
+  filter: blur(10px);
+}
+
+/* 图表容器悬停效果 */
+.chart-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  border-color: rgba(0, 208, 255, 0.2);
+}
+
+/* 实时指标悬停效果 */
+.realtime-metrics .metric:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.realtime-metrics .metric:hover .metric-value {
+  animation: pulse-text 2s infinite alternate ease-in-out;
+}
+
+.realtime-metrics .metric:hover::before {
+  animation: glow-line 1.5s infinite alternate ease-in-out;
+}
+
+/* 按钮悬停效果 */
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* 导航链接悬停效果 */
+.navigation a:hover {
+  text-shadow: 0 0 10px rgba(0, 208, 255, 0.8);
+}
+
+/* 进度条和指标条悬停效果 */
+.progress-bar:hover .progress::after,
+.metric-bar:hover .metric-fill::after {
+  animation: shine-effect 1.5s infinite;
+}
+
+/* ===== 动画定义 ===== */
+@keyframes gradient-move {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes shine-effect {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes subtle-pulse {
+  0%, 100% {
+    opacity: 0.05;
+  }
+  50% {
+    opacity: 0.15;
+  }
+}
+
+@keyframes pulse-text {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(0, 208, 255, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(0, 208, 255, 0.7);
+  }
+}
+
+@keyframes glow-line {
+  0%, 100% {
+    opacity: 0.8;
+    box-shadow: 0 0 10px rgba(0, 208, 255, 0.5);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(0, 208, 255, 0.8);
+  }
+}
+
+@keyframes rotate-gradient {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 确保移动设备上的优化体验 */
+@media (max-width: 768px) {
+  .card:hover {
+    transform: translateY(-5px) scale(1.01);
+  }
+  
+  .realtime-metrics .metric:hover {
+    transform: translateY(-5px) scale(1.02);
+  }
+} 

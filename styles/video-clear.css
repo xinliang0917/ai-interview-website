@@ -1,0 +1,42 @@
+/**
+ * 视频清晰样式 - 移除所有可能影响视频清晰度的效果
+ */
+
+/* 恢复视频原始清晰度 */
+video {
+  /* 移除所有滤镜效果 */
+  filter: none !important;
+  /* 确保没有其他变换影响清晰度 */
+  transform: none !important;
+}
+
+/* 移除视频叠加层的所有模糊效果 */
+.video-overlay {
+  /* 完全移除模糊滤镜 */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  /* 保持背景完全透明 */
+  background: transparent !important;
+}
+
+/* 确保检测框完全透明 */
+.detection-box {
+  background: transparent !important;
+}
+
+/* 减小边框效果的干扰 */
+.video-wrapper::before {
+  opacity: 0.2 !important;
+}
+
+/* 减小动画变换对视频清晰度的影响 */
+.video-container {
+  transform: none !important;
+}
+
+/* 确保情绪标签不会干扰视频观看 */
+.emotion-label {
+  background: rgba(10, 18, 50, 0.5) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+} 
