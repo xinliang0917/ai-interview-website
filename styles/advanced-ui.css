@@ -458,4 +458,56 @@ button:hover {
   .realtime-metrics .metric:hover {
     transform: translateY(-5px) scale(1.02);
   }
+}
+
+/* 添加语音分析实时指标样式 */
+.metrics-grid .realtime-value-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.metrics-grid .value {
+  font-weight: 600;
+  color: var(--text-bright);
+  text-shadow: 0 0 8px rgba(0, 208, 255, 0.6);
+  transition: all 0.3s ease;
+}
+
+.metrics-grid .realtime-indicator {
+  display: flex;
+  gap: 3px;
+}
+
+.metrics-grid .realtime-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  opacity: 0.6;
+}
+
+.metrics-grid .realtime-dot:nth-child(1) {
+  animation: pulse-dot 1.5s infinite ease-in-out;
+}
+
+.metrics-grid .realtime-dot:nth-child(2) {
+  animation: pulse-dot 1.5s 0.5s infinite ease-in-out;
+}
+
+.metrics-grid .realtime-dot:nth-child(3) {
+  animation: pulse-dot 1.5s 1s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    transform: scale(0.8);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 1;
+    box-shadow: 0 0 6px var(--accent-color);
+  }
 } 

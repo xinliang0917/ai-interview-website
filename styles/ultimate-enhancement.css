@@ -1,0 +1,382 @@
+/**
+ * AI智能面试系统 - 终极UI视觉体验增强
+ * 保持原有布局，专注提升视觉质量、深度感和交互体验
+ * 超级科技感、未来感体验升级
+ */
+
+:root {
+  /* 高级辉光效果 */
+  --ultimate-glow: 0 0 25px rgba(0, 208, 255, 0.9), 0 0 50px rgba(0, 208, 255, 0.4);
+  --subtle-glow: 0 0 15px rgba(0, 208, 255, 0.3);
+  --text-glow-strong: 0 0 8px rgba(0, 208, 255, 0.85);
+  
+  /* 高级阴影与景深 */
+  --depth-shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  --inner-shadow: inset 0 0 30px rgba(0, 208, 255, 0.15);
+  
+  /* 超现代渐变 */
+  --ultimate-gradient: linear-gradient(135deg, #00c2ff 0%, #8a2be2 50%, #ff00c8 100%);
+  --holographic-gradient: conic-gradient(from 225deg, #00c2ff, #7000ff, #ff00c8, #00ffc8, #00c2ff);
+  --cyber-gradient: linear-gradient(135deg, #00fbff 0%, #047eff 50%, #7000ff 100%);
+  
+  /* 玻璃态效果增强 */
+  --glass-blur-strong: blur(25px);
+  
+  /* 高级动画 */
+  --elastic-animation: cubic-bezier(0.18, 0.89, 0.32, 1.5);
+  --spring-animation: cubic-bezier(0.25, 0.1, 0.25, 1.5);
+}
+
+/* ===== 全局体验增强 ===== */
+
+/* 超级现代背景效果 */
+body::before {
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(0, 208, 255, 0.08), transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(157, 0, 255, 0.08), transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(255, 0, 200, 0.05), transparent 60%);
+  animation: background-pulse 20s infinite alternate ease-in-out;
+}
+
+body::after {
+  opacity: 0.2;
+  background-size: 40px 40px;
+  transform: perspective(1000px) rotateX(60deg) scale(2);
+  transform-origin: center bottom;
+}
+
+/* 超级卡片效果 */
+.card {
+  border-width: 1px;
+  border-style: solid;
+  border-image: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.12) 0%, 
+    rgba(0, 208, 255, 0.15) 50%,
+    rgba(157, 0, 255, 0.12) 100%
+  ) 1;
+  box-shadow: var(--depth-shadow-xl), var(--inner-shadow);
+  transition: all 0.5s var(--elastic-animation);
+}
+
+.card::before {
+  opacity: 0.4;
+  filter: blur(8px);
+}
+
+.card::after {
+  background: radial-gradient(
+    circle at 65% 25%, 
+    rgba(0, 208, 255, 0.18) 0%, 
+    rgba(157, 0, 255, 0.1) 40%,
+    transparent 70%
+  );
+}
+
+/* 标题超现代效果 */
+.card h3 {
+  background: var(--cyber-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: var(--text-glow-strong);
+  letter-spacing: 0.8px;
+}
+
+.card h3::after {
+  height: 3px;
+  width: 60px;
+  background: var(--cyber-gradient);
+  box-shadow: var(--subtle-glow);
+}
+
+/* 全局导航增强 */
+.navigation a {
+  transition: all 0.4s var(--spring-animation);
+  letter-spacing: 0.5px;
+}
+
+.navigation a:hover {
+  text-shadow: var(--text-glow-strong);
+  transform: translateY(-2px);
+}
+
+.navigation li.active a {
+  position: relative;
+  color: #fff;
+  text-shadow: var(--text-glow-strong);
+}
+
+/* 按钮高级悬停效果 */
+.header-controls button {
+  overflow: hidden;
+  transition: all 0.4s var(--elastic-animation);
+  border: 1px solid rgba(0, 208, 255, 0.2);
+}
+
+.header-controls button::before {
+  background: var(--ultimate-gradient);
+  background-size: 300% 300%;
+  animation: gradient-flow 4s ease infinite;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.header-controls button::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: calc(var(--radius) - 1px);
+  background: var(--bg-darker);
+  z-index: -1;
+  transition: all 0.3s ease;
+}
+
+.header-controls button:hover::before {
+  opacity: 1;
+}
+
+.header-controls button:hover::after {
+  filter: brightness(1.3);
+}
+
+.header-controls .start-interview:hover,
+.header-controls .end-interview:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 208, 255, 0.3);
+}
+
+/* ===== 视频区块增强 ===== */
+.video-container {
+  box-shadow: var(--depth-shadow-xl);
+  border-width: 1px;
+  border-style: solid;
+  border-image: linear-gradient(
+    135deg, 
+    rgba(0, 208, 255, 0.3) 0%, 
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(157, 0, 255, 0.3) 100%
+  ) 1;
+  transition: all 0.5s var(--elastic-animation);
+}
+
+.video-overlay {
+  backdrop-filter: var(--glass-blur-strong);
+  -webkit-backdrop-filter: var(--glass-blur-strong);
+}
+
+.detection-box {
+  border: 2px solid rgba(0, 208, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 208, 255, 0.3);
+  animation: detection-pulse 2s infinite alternate ease-in-out;
+}
+
+.corner-tl, .corner-tr, .corner-bl, .corner-br {
+  width: 20px;
+  height: 20px;
+  border-width: 3px;
+  box-shadow: var(--subtle-glow);
+}
+
+.scan-line {
+  opacity: 0.8;
+  box-shadow: 0 0 15px rgba(0, 208, 255, 0.7);
+  animation: scan-move 3s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 实时指标增强 */
+.realtime-metrics .metric {
+  background: linear-gradient(135deg, 
+    rgba(20, 32, 71, 0.8) 0%, 
+    rgba(10, 18, 50, 0.9) 100%);
+  border-width: 1px;
+  border-style: solid;
+  border-image: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(0, 208, 255, 0.2) 100%
+  ) 1;
+  box-shadow: var(--depth-shadow-xl);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.realtime-metrics .metric::before {
+  opacity: 0.7;
+}
+
+.realtime-metrics .metric-value {
+  text-shadow: var(--text-glow-strong);
+  animation: pulse-text 2s infinite alternate ease-in-out;
+  font-weight: 700;
+}
+
+/* ===== 图表与数据可视化增强 ===== */
+.chart-container {
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: var(--depth-shadow-xl), var(--inner-shadow);
+  border: 1px solid rgba(0, 208, 255, 0.15);
+}
+
+.chart-container::before {
+  background: linear-gradient(135deg, 
+    rgba(26, 43, 99, 0.6) 0%,
+    rgba(10, 18, 50, 0.8) 100%);
+}
+
+.chart-container::after {
+  opacity: 0.6;
+  animation: rotate-gradient 50s linear infinite;
+}
+
+/* 雷达图增强 */
+#competitive-radar-chart, #radar-chart {
+  filter: drop-shadow(0 0 10px rgba(0, 208, 255, 0.3));
+}
+
+/* 指标条增强 */
+.metric-bar {
+  height: 8px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.metric-fill {
+  box-shadow: 0 0 15px rgba(0, 208, 255, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.5) 50%, 
+    transparent 100%);
+  animation: shine-effect 3s infinite;
+}
+
+/* 评分圆圈增强 */
+.score-circle {
+  background: linear-gradient(135deg, 
+    rgba(26, 43, 99, 0.5) 0%,
+    rgba(10, 18, 50, 0.8) 100%);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 2px solid;
+  border-image: var(--holographic-gradient) 1;
+  box-shadow: var(--depth-shadow-xl), var(--inner-shadow);
+}
+
+.score-circle::before {
+  background: conic-gradient(
+    from 0deg,
+    var(--neon-blue) 0%,
+    var(--neon-purple) 25%,
+    var(--neon-pink) 50%,
+    var(--neon-green) 75%,
+    var(--neon-blue) 100%
+  );
+  opacity: 0.8;
+  filter: blur(8px);
+  animation: rotate-gradient 10s linear infinite;
+}
+
+.score-value {
+  text-shadow: var(--text-glow-strong);
+  animation: pulse-text 2s infinite alternate ease-in-out;
+  font-weight: 700;
+}
+
+/* ===== 交互响应增强 ===== */
+
+/* 卡片悬停效果 */
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 208, 255, 0.2);
+}
+
+.card:hover::before {
+  opacity: 0.7;
+  filter: blur(6px);
+}
+
+.card:hover h3 {
+  text-shadow: 0 0 12px rgba(0, 208, 255, 0.9);
+}
+
+/* 实时指标悬停效果 */
+.realtime-metrics .metric:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: var(--depth-shadow-xl), 0 0 20px rgba(0, 208, 255, 0.3);
+}
+
+.realtime-metrics .metric:hover .metric-value {
+  color: #fff;
+  text-shadow: 0 0 15px rgba(0, 208, 255, 1);
+}
+
+/* 视频容器悬停效果 */
+.video-container:hover {
+  box-shadow: var(--depth-shadow-xl), 0 0 30px rgba(0, 208, 255, 0.25);
+}
+
+/* ===== 动画定义 ===== */
+@keyframes background-pulse {
+  0% {
+    opacity: 0.5;
+    background-position: 0% 0%;
+  }
+  100% {
+    opacity: 0.7;
+    background-position: 100% 100%;
+  }
+}
+
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes shine-effect {
+  0% {
+    left: -100%;
+  }
+  20%, 100% {
+    left: 100%;
+  }
+}
+
+@keyframes pulse-text {
+  0% {
+    text-shadow: 0 0 5px rgba(0, 208, 255, 0.7);
+  }
+  100% {
+    text-shadow: 0 0 15px rgba(0, 208, 255, 1);
+  }
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+  .card:hover {
+    transform: translateY(-5px) scale(1.01);
+  }
+  
+  .realtime-metrics .metric:hover {
+    transform: translateY(-3px) scale(1.03);
+  }
+} 

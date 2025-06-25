@@ -2,6 +2,18 @@
  * 超级科技感UI界面设计
  */
 
+/* 导入其他样式表 */
+@import url('styles/dashboard.css');
+@import url('styles/interview.css');
+@import url('styles/profile.css');
+@import url('styles/history.css');
+@import url('styles/settings.css');
+@import url('styles/modal.css');
+@import url('styles/auth.css');
+@import url('styles/notifications.css');
+@import url('styles/chart-enhance.css');
+@import url('styles/resume-layout.css'); /* 新增简历布局样式 */
+
 :root {
   /* 主色调 - 深邃科技蓝 */
   --primary-color: #0052cc;
@@ -1859,4 +1871,195 @@ video {
   overflow: hidden;
   display: block; /* 确保显示 */
   min-height: 5px; /* 确保最小高度 */
+}
+
+/* 历史记录卡片样式 */
+.history-card {
+  background: var(--bg-dark);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.history-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg), 0 10px 20px rgba(0, 120, 255, 0.2);
+  border-color: var(--primary-color);
+}
+
+.history-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top right, rgba(0, 208, 255, 0.15), transparent 70%);
+  pointer-events: none;
+}
+
+.history-card-header {
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-darker);
+}
+
+.history-card-header h3 {
+  margin: 0;
+  color: var(--text-bright);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.history-date {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.history-card-content {
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.history-info {
+  flex: 1;
+}
+
+.history-info-item {
+  margin-bottom: 0.8rem;
+  display: flex;
+}
+
+.history-info-item .label {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  width: 80px;
+}
+
+.history-info-item .value {
+  color: var(--text-bright);
+  font-weight: 500;
+}
+
+.history-score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+}
+
+.score-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--primary-color) 0% var(--progress-percent, 86%), 
+    var(--bg-darker) var(--progress-percent, 86%) 100%
+  );
+  position: relative;
+}
+
+.score-display::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  background: var(--bg-dark);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.score-display .score-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  position: relative;
+  z-index: 2;
+}
+
+.score-display .score-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  position: relative;
+  z-index: 2;
+}
+
+.history-card-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-darker);
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.history-view-btn {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--border-radius-md);
+  border: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.history-view-btn:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 0 15px rgba(0, 82, 204, 0.4);
+}
+
+.history-delete-btn {
+  background: transparent;
+  color: var(--danger-color);
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--danger-color);
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.history-delete-btn:hover {
+  background: rgba(255, 61, 113, 0.1);
+  box-shadow: 0 0 10px rgba(255, 61, 113, 0.3);
+}
+
+.empty-history {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  background: rgba(15, 23, 42, 0.3);
+  border-radius: var(--border-radius-lg);
+  border: 1px dashed var(--border-color);
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  color: var(--danger-color);
+  font-size: 1.1rem;
+  background: rgba(255, 61, 113, 0.05);
+  border-radius: var(--border-radius-lg);
+  border: 1px dashed var(--danger-color);
 } 

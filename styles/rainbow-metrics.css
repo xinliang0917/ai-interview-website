@@ -1,0 +1,264 @@
+/**
+ * AI智能面试系统 - 七彩渐变显示条效果
+ * 为竞争力分析面板添加超级丝滑的七彩渐变效果
+ */
+
+/* 竞争力分析卡片增强 */
+.analysis-card {
+  transition: transform 0.3s ease, box-shadow 0.5s ease;
+}
+
+.analysis-card:hover {
+  box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 208, 255, 0.2);
+  transform: translateY(-5px);
+}
+
+/* 指标条容器增强 */
+.metric-bar-container {
+  position: relative;
+  height: 12px;
+  background: rgba(10, 18, 50, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+  margin: 10px 0 15px;
+  z-index: 1;
+}
+
+/* 七彩渐变指标填充 */
+.metric-fill {
+  position: relative;
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(
+    90deg,
+    #ff3d71 0%,
+    #ff7a00 14%,
+    #ffca45 28%,
+    #39e483 42%,
+    #00d4ff 56%,
+    #7b5aff 70%,
+    #cb6ce6 85%,
+    #ff3d71 100%
+  );
+  background-size: 200% 100%;
+  animation: rainbow-flow 8s linear infinite;
+  box-shadow: 0 0 10px rgba(0, 208, 255, 0.5);
+  transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 发光效果叠加 */
+.metric-fill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), transparent);
+  border-radius: 10px 10px 0 0;
+  z-index: 2;
+}
+
+/* 流动光效 */
+.metric-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: flow-light 3s ease-in-out infinite;
+  z-index: 3;
+}
+
+/* 指标分数增强 */
+.metric-score {
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: linear-gradient(90deg, #00d4ff, #7b5aff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.metric-item:hover .metric-score {
+  transform: scale(1.1);
+  text-shadow: 0 0 8px rgba(0, 208, 255, 0.7);
+}
+
+/* 参考标记增强 */
+.metric-markers .average-marker,
+.metric-markers .ideal-marker {
+  position: absolute;
+  width: 3px;
+  height: 15px;
+  top: -1px;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 5;
+  transition: height 0.3s ease, box-shadow 0.3s ease;
+}
+
+.metric-markers .average-marker {
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 5px rgba(0, 208, 255, 0.5);
+}
+
+.metric-markers .ideal-marker {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 5px rgba(158, 0, 255, 0.5);
+}
+
+.metric-bar-container:hover .average-marker,
+.metric-bar-container:hover .ideal-marker {
+  height: 18px;
+  box-shadow: 0 0 8px rgba(0, 208, 255, 0.8);
+}
+
+/* 指标名称增强 */
+.metric-name {
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.metric-item:hover .metric-name {
+  color: #00d4ff;
+}
+
+/* 动画定义 */
+@keyframes rainbow-flow {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}
+
+@keyframes flow-light {
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+
+/* 超级动态效果 - 分数上升动画 */
+@keyframes score-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.metric-score.animate {
+  animation: score-pulse 1s ease-in-out;
+}
+
+/* 竞争力分析卡片响应式适配 */
+@media (max-width: 768px) {
+  .metric-bar-container {
+    height: 10px;
+    margin: 8px 0 12px;
+  }
+  
+  .metric-score {
+    font-size: 1rem;
+  }
+}
+
+/* 标题增强 */
+.analysis-card h3 {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.analysis-card h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #00d4ff, #7b5aff);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+
+.analysis-card:hover h3::after {
+  transform: scaleX(1);
+}
+
+/* 为不同指标项设置不同的渐变颜色 */
+.metric-row:nth-child(1) .metric-item:nth-child(1) .metric-fill {
+  background: linear-gradient(
+    90deg,
+    #ff3d71 0%,
+    #ff7a00 50%,
+    #ff3d71 100%
+  );
+  background-size: 200% 100%;
+}
+
+.metric-row:nth-child(1) .metric-item:nth-child(2) .metric-fill {
+  background: linear-gradient(
+    90deg,
+    #ff7a00 0%,
+    #ffca45 50%,
+    #ff7a00 100%
+  );
+  background-size: 200% 100%;
+}
+
+.metric-row:nth-child(2) .metric-item:nth-child(1) .metric-fill {
+  background: linear-gradient(
+    90deg,
+    #ffca45 0%,
+    #39e483 50%,
+    #ffca45 100%
+  );
+  background-size: 200% 100%;
+}
+
+.metric-row:nth-child(2) .metric-item:nth-child(2) .metric-fill {
+  background: linear-gradient(
+    90deg,
+    #39e483 0%,
+    #00d4ff 50%,
+    #39e483 100%
+  );
+  background-size: 200% 100%;
+}
+
+.metric-row:nth-child(3) .metric-item:nth-child(1) .metric-fill {
+  background: linear-gradient(
+    90deg,
+    #00d4ff 0%,
+    #7b5aff 50%,
+    #00d4ff 100%
+  );
+  background-size: 200% 100%;
+}
+
+.metric-row:nth-child(3) .metric-item:nth-child(2) .metric-fill {
+  background: linear-gradient(
+    90deg,
+    #7b5aff 0%,
+    #cb6ce6 50%,
+    #7b5aff 100%
+  );
+  background-size: 200% 100%;
+} 

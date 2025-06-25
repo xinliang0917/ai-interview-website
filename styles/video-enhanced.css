@@ -76,88 +76,22 @@ video {
   );
 }
 
-/* 增强检测框效果 */
+/* 增强检测框效果 - 现在隐藏检测框 */
 .detection-box {
-  border: 1px solid rgba(0, 208, 255, 0.7);
-  box-shadow: 0 0 10px rgba(0, 208, 255, 0.5);
-  transition: all 0.3s ease;
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
 }
 
-.detection-box::before,
-.detection-box::after {
-  content: '';
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border: 2px solid rgba(0, 208, 255, 0.8);
-  border-radius: 1px;
-  box-shadow: 0 0 10px rgba(0, 208, 255, 0.6);
-}
-
-.detection-box::before {
-  top: -2px;
-  left: -2px;
-  border-right: none;
-  border-bottom: none;
-}
-
-.detection-box::after {
-  bottom: -2px;
-  right: -2px;
-  border-left: none;
-  border-top: none;
-}
-
-/* 添加四个角 */
+/* 隐藏检测框的所有子元素 */
 .detection-box .corner-tl,
 .detection-box .corner-tr,
 .detection-box .corner-bl,
-.detection-box .corner-br {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-color: var(--accent-color);
-  box-shadow: 0 0 8px var(--accent-color);
-}
-
-.detection-box .corner-tl {
-  top: 0;
-  left: 0;
-  border-top: 2px solid;
-  border-left: 2px solid;
-}
-
-.detection-box .corner-tr {
-  top: 0;
-  right: 0;
-  border-top: 2px solid;
-  border-right: 2px solid;
-}
-
-.detection-box .corner-bl {
-  bottom: 0;
-  left: 0;
-  border-bottom: 2px solid;
-  border-left: 2px solid;
-}
-
-.detection-box .corner-br {
-  bottom: 0;
-  right: 0;
-  border-bottom: 2px solid;
-  border-right: 2px solid;
-}
-
-/* 增强扫描线效果 */
+.detection-box .corner-br,
 .detection-box .scan-line {
-  background: linear-gradient(to bottom, 
-    transparent, 
-    rgba(0, 208, 255, 0.8) 50%, 
-    transparent
-  );
-  box-shadow: 0 0 15px rgba(0, 208, 255, 0.7);
-  height: 3px;
-  animation: scan-move 1.5s ease-in-out infinite;
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
 }
 
 /* 情绪标签增强 */

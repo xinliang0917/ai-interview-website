@@ -1,0 +1,42 @@
+/**
+ * 隐藏面部检测框样式
+ * 这个文件用于确保在进行面部识别时不显示检测框
+ */
+
+/* 隐藏检测框 */
+.detection-box,
+.detection-box::before,
+.detection-box::after,
+.detection-box *,
+.landmarks-canvas {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  animation: none !important;
+  pointer-events: none !important;
+}
+
+/* 确保视频叠加层不会干扰视频显示 */
+.video-overlay {
+  pointer-events: none !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 确保视频容器不受影响 */
+.video-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+/* 确保视频显示正常 */
+video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+} 

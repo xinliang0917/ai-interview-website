@@ -19,9 +19,14 @@ video {
   background: transparent !important;
 }
 
-/* 确保检测框完全透明 */
+/* 确保检测框完全透明且不显示 */
 .detection-box {
   background: transparent !important;
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /* 减小边框效果的干扰 */

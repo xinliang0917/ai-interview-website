@@ -1,0 +1,482 @@
+/**
+ * AI智能面试系统 - 超级优化可拖动聊天组件
+ * 强化超级透明感和未来科技风格的高级视觉效果
+ */
+
+/* 可拖动聊天组件 - 超级无敌透明 */
+.draggable-chat {
+  position: absolute;
+  top: 100px;
+  right: 100px;
+  width: 320px;
+  height: 450px;
+  background: rgba(10, 18, 50, 0.2); /* 极度降低背景不透明度 */
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 
+              0 0 40px rgba(0, 208, 255, 0.15);
+  z-index: 9999;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: blur(28px); /* 增强模糊效果 */
+  -webkit-backdrop-filter: blur(28px);
+  resize: both;
+  transform-origin: center center;
+  opacity: 0.6; /* 进一步降低默认不透明度 */
+}
+
+/* 超强玻璃质感反光效果 */
+.draggable-chat::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, 
+    rgba(0, 219, 255, 0.6) 0%, 
+    rgba(152, 70, 255, 0.6) 50%, 
+    rgba(0, 219, 255, 0.6) 100%);
+  background-size: 400% 400%;
+  animation: gradient-shift 8s ease infinite;
+  border-radius: 22px;
+  opacity: 0.25; /* 降低边框光晕不透明度 */
+  filter: blur(15px);
+  z-index: -1;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+/* 模拟玻璃内部反射效果 */
+.draggable-chat::after {
+  content: "";
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  width: 12px;
+  height: 12px;
+  border-right: 2px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  filter: drop-shadow(0 0 3px rgba(0, 208, 255, 0.8));
+}
+
+/* 顶部玻璃反光效果 */
+.draggable-chat:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to bottom, 
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 悬浮时的光晕和不透明度增强 */
+.draggable-chat:hover {
+  opacity: 0.8; /* 调整悬停时的不透明度 */
+  transform: translateY(-3px);
+  transition: all 0.3s ease;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3), 
+              0 0 45px rgba(0, 208, 255, 0.2);
+}
+
+.draggable-chat:hover::before {
+  opacity: 0.4;
+  filter: blur(12px);
+  animation: gradient-shift 4s ease infinite;
+}
+
+/* 拖动手柄 - 超极致透明处理 */
+.drag-handle {
+  padding: 12px 15px;
+  background: linear-gradient(90deg, 
+    rgba(10, 18, 40, 0.35), 
+    rgba(30, 56, 133, 0.35));
+  cursor: move;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 14px;
+  user-select: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  position: relative;
+  z-index: 1;
+}
+
+/* 添加拖动手柄折射效果 */
+.drag-handle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, 
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0) 100%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* 光晕点状装饰 */
+.handle-dots {
+  display: flex;
+  gap: 5px;
+  margin-right: 12px;
+}
+
+.handle-dots::before, 
+.handle-dots::after {
+  content: "";
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 10px rgba(0, 208, 255, 0.8);
+  animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.7;
+    box-shadow: 0 0 6px rgba(0, 208, 255, 0.6);
+  }
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(0, 208, 255, 0.9);
+  }
+}
+
+.handle-dots::before {
+  background: rgb(0, 208, 255);
+  animation-delay: 0.5s;
+}
+
+.handle-dots::after {
+  background: rgb(152, 70, 255);
+}
+
+/* 标题文字 - 超级全息感 */
+.drag-handle span {
+  flex-grow: 1;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.95), 
+    rgba(0, 208, 255, 0.95) 50%, 
+    rgba(255, 255, 255, 0.95));
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(0, 208, 255, 0.3);
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* 控制按钮 - 超透明按钮 */
+.chat-control {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: auto;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+              inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 按钮内部反光效果 */
+.chat-control::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, 
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+}
+
+.chat-control:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
+              inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.chat-control:active {
+  transform: translateY(0);
+}
+
+#close-chat {
+  margin-left: 8px;
+}
+
+/* 聊天内容区域 - 最高透明度 */
+.chat-content {
+  width: 100%;
+  height: calc(100% - 44px);
+  overflow: hidden;
+  position: relative;
+  background: rgba(10, 18, 50, 0.1); /* 添加极度透明的背景 */
+}
+
+/* 顶部渐变阴影效果 */
+.chat-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 25px;
+  background: linear-gradient(to bottom, 
+    rgba(10, 18, 50, 0.2) 0%, 
+    rgba(10, 18, 50, 0) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* 侧边半透明发光效果 */
+.chat-content::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 100%;
+  background: linear-gradient(to left, 
+    rgba(0, 208, 255, 0.05) 0%, 
+    rgba(0, 208, 255, 0) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.chat-content iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  transition: opacity 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+/* 最小化状态 - 平滑动画 */
+.draggable-chat.minimized {
+  height: 44px !important;
+  width: 220px !important;
+  resize: none;
+  opacity: 0.75; /* 提高透明度 */
+  border-radius: 30px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: blur(12px); /* 最小化时保持高斯模糊 */
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.draggable-chat.minimized .drag-handle {
+  border-bottom: none;
+}
+
+.draggable-chat.minimized:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25), 
+              0 0 25px rgba(0, 208, 255, 0.25);
+}
+
+.draggable-chat.minimized .chat-content {
+  display: none;
+}
+
+/* 拖动时的效果 - 保持相似的视觉风格 */
+.draggable-chat.dragging {
+  opacity: 0.75;
+  transform: scale(0.98);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 
+              0 0 40px rgba(0, 208, 255, 0.2);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  transition: all 0.2s ease;
+}
+
+.draggable-chat.dragging::before {
+  opacity: 0.35;
+  filter: blur(15px);
+}
+
+/* 动画效果 */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* 闪烁光效果 - 更平滑的过渡 */
+.draggable-chat.flash::before {
+  opacity: 0.5;
+  filter: blur(15px);
+  transition: all 0.3s ease;
+  animation: flash-pulse 0.3s ease;
+}
+
+@keyframes flash-pulse {
+  0% { opacity: 0.15; }
+  50% { opacity: 0.6; }
+  100% { opacity: 0.5; }
+}
+
+/* 托盘图标样式 - 全息悬浮设计 */
+.chat-tray-icon {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 55px;
+  height: 55px;
+  background: radial-gradient(circle, 
+    rgba(0, 208, 255, 0.8) 0%, 
+    rgba(129, 72, 255, 0.8) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), 
+              0 0 20px rgba(0, 208, 255, 0.5),
+              inset 0 0 15px rgba(255, 255, 255, 0.3);
+  z-index: 9998;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  opacity: 0;
+  transform: scale(0) rotate(45deg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+/* 全息旋转效果 */
+.chat-tray-icon::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: linear-gradient(135deg, 
+    rgba(0, 219, 255, 0.7) 0%, 
+    rgba(152, 70, 255, 0.7) 100%);
+  border-radius: 50%;
+  opacity: 0.3;
+  filter: blur(8px);
+  z-index: -1;
+  animation: rotating 10s linear infinite;
+}
+
+/* 内部反光效果 */
+.chat-tray-icon::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, 
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.chat-tray-icon.show {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+}
+
+.chat-tray-icon:hover {
+  transform: scale(1.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 
+              0 0 25px rgba(0, 208, 255, 0.6),
+              inset 0 0 25px rgba(255, 255, 255, 0.35);
+}
+
+.chat-tray-icon:active {
+  transform: scale(0.95);
+  transition: all 0.1s ease;
+}
+
+.chat-tray-icon i {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 24px;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.6));
+  animation: float 2s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+  100% { transform: translateY(0px); }
+}
+
+/* 增加打开和关闭的动画效果 */
+@keyframes open-chat {
+  0% { transform: scale(0.5); opacity: 0; backdrop-filter: blur(30px); }
+  50% { backdrop-filter: blur(25px); }
+  100% { transform: scale(1); opacity: 1; backdrop-filter: blur(20px); }
+}
+
+@keyframes close-chat {
+  0% { transform: scale(1); opacity: 1; backdrop-filter: blur(20px); }
+  50% { backdrop-filter: blur(25px); }
+  100% { transform: scale(0.6); opacity: 0; backdrop-filter: blur(30px); }
+} 

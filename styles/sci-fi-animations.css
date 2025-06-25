@@ -1,0 +1,332 @@
+/**
+ * AI智能面试系统 - 科幻动画效果
+ * 提供高科技粒子效果、光束和扫描线特效
+ */
+
+/* ===== 粒子背景效果 ===== */
+.particles-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -15;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: rgba(0, 208, 255, 0.5);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 208, 255, 0.8);
+  animation: particle-float 20s infinite linear;
+  opacity: 0;
+}
+
+/* 动态生成粒子效果 */
+@keyframes particle-float {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(0);
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100vh) translateX(20px);
+  }
+}
+
+/* ===== 全息扫描线效果 ===== */
+.holographic-scan {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -14;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.scan-line {
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 208, 255, 0.5) 20%,
+    rgba(0, 208, 255, 0.8) 50%,
+    rgba(0, 208, 255, 0.5) 80%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  box-shadow: 0 0 15px rgba(0, 208, 255, 0.8);
+  animation: scan-move 10s infinite ease-in-out;
+  opacity: 0.5;
+}
+
+@keyframes scan-move {
+  0%, 100% {
+    top: -1%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  50% {
+    top: 101%;
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0;
+  }
+}
+
+/* ===== 数据流效果 ===== */
+.data-stream {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 100%;
+  z-index: -13;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.data-line {
+  position: absolute;
+  width: 20px;
+  height: 1px;
+  background-color: rgba(0, 208, 255, 0.7);
+  box-shadow: 0 0 5px rgba(0, 208, 255, 0.5);
+  opacity: 0;
+  right: 0;
+  animation: data-flow 5s infinite linear;
+}
+
+@keyframes data-flow {
+  0% {
+    top: -10px;
+    opacity: 0;
+    width: 5px;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+    width: 15px;
+  }
+}
+
+/* ===== 光束效果 ===== */
+.light-beams {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -12;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.3;
+}
+
+.light-beam {
+  position: absolute;
+  width: 1px;
+  transform-origin: top center;
+  background: linear-gradient(to bottom,
+    rgba(0, 208, 255, 0.7) 0%,
+    rgba(0, 208, 255, 0) 90%
+  );
+  animation: beam-rotate 20s infinite linear;
+  box-shadow: 0 0 20px rgba(0, 208, 255, 0.5);
+}
+
+@keyframes beam-rotate {
+  0% {
+    transform: rotate(0deg);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: rotate(360deg);
+    opacity: 0.3;
+  }
+}
+
+/* ===== 网格脉冲效果 ===== */
+.grid-pulse {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -11;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.pulse-circle {
+  position: absolute;
+  border: 1px solid rgba(0, 208, 255, 0.5);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 208, 255, 0.3);
+  animation: pulse-expand 5s infinite ease-out;
+  opacity: 0;
+}
+
+@keyframes pulse-expand {
+  0% {
+    transform: scale(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(5);
+    opacity: 0;
+  }
+}
+
+/* ===== 全息投影效果 ===== */
+.hologram-effect {
+  position: relative;
+}
+
+.hologram-effect::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 208, 255, 0.1) 0px,
+    rgba(0, 208, 255, 0.1) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 2;
+  animation: hologram-scan 3s infinite linear;
+}
+
+@keyframes hologram-scan {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 30px;
+  }
+}
+
+/* ===== 科技边框效果 ===== */
+.tech-border {
+  position: relative;
+}
+
+.tech-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(90deg, 
+    var(--accent-color) 0%, 
+    transparent 20%, 
+    transparent 80%, 
+    var(--accent-color) 100%);
+  z-index: -1;
+  opacity: 0.6;
+  animation: border-flash 4s infinite alternate;
+}
+
+.tech-border::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(0deg, 
+    var(--accent-color) 0%, 
+    transparent 20%, 
+    transparent 80%, 
+    var(--accent-color) 100%);
+  z-index: -1;
+  opacity: 0.6;
+  animation: border-flash 4s infinite alternate-reverse;
+}
+
+@keyframes border-flash {
+  0%, 100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* ===== 数字雨效果 ===== */
+.digital-rain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -16;
+  pointer-events: none;
+  opacity: 0.07;
+}
+
+.rain-column {
+  position: absolute;
+  top: -100px;
+  color: rgba(0, 208, 255, 0.7);
+  font-size: 12px;
+  line-height: 1;
+  font-family: monospace;
+  white-space: nowrap;
+  text-shadow: 0 0 5px rgba(0, 208, 255, 0.5);
+  animation: rain-fall linear infinite;
+}
+
+@keyframes rain-fall {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+/* 适配移动设备 */
+@media (max-width: 768px) {
+  /* 在移动设备上减少特效数量和复杂度 */
+  .light-beam, .pulse-circle {
+    display: none;
+  }
+  
+  .particle, .data-line {
+    width: 1px;
+    height: 1px;
+  }
+  
+  .scan-line {
+    opacity: 0.3;
+  }
+  
+  .digital-rain {
+    opacity: 0.05;
+  }
+} 

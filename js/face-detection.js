@@ -36,7 +36,8 @@ const DETECTION_PARAMS = {
   boxWidth: 2,      // 边框宽度
   glowEffect: '0 0 10px rgba(0, 208, 255, 0.7)',  // 发光效果
   landmarkColor: 'rgba(0, 208, 255, 0.7)', // 特征点颜色
-  showLandmarks: false // 是否显示特征点
+  showLandmarks: false, // 是否显示特征点
+  showDetectionBox: false // 是否显示检测框
 };
 
 // 初始化检测
@@ -48,8 +49,8 @@ async function initFaceDetection() {
       throw new Error('未找到视频元素');
     }
     
-    // 初始化检测框UI
-    initDetectionBoxUI();
+    // 不再初始化检测框UI
+    // initDetectionBoxUI();
     
     // 显示加载状态
     showNotification('正在初始化人脸检测模型...', 'info');
@@ -332,8 +333,10 @@ function processDetectionResults(results, videoEl) {
   const detectionBox = document.querySelector('.detection-box');
   const emotionEl = document.getElementById('emotion');
   
-  // 清除现有样式
-  detectionBox.style.display = 'none';
+  // 始终隐藏检测框
+  if (detectionBox) {
+    detectionBox.style.display = 'none';
+  }
   
   // 如果没有检测到人脸
   if (!results || !results.length) {
@@ -346,7 +349,6 @@ function processDetectionResults(results, videoEl) {
   
   // 处理第一个检测到的人脸
   const detection = results[0];
-  const box = detection.detection.box;
   const expressions = detection.expressions;
   const landmarks = detection.landmarks;
   
@@ -360,16 +362,6 @@ function processDetectionResults(results, videoEl) {
   // 计算缩放比例
   const scaleX = containerWidth / videoWidth;
   const scaleY = containerHeight / videoHeight;
-  
-  // 更新检测框位置和尺寸
-  detectionBox.style.display = 'block';
-  detectionBox.style.left = `${box.x * scaleX}px`;
-  detectionBox.style.top = `${box.y * scaleY}px`;
-  detectionBox.style.width = `${box.width * scaleX}px`;
-  detectionBox.style.height = `${box.height * scaleY}px`;
-  detectionBox.style.borderColor = DETECTION_PARAMS.boxColor;
-  detectionBox.style.borderWidth = `${DETECTION_PARAMS.boxWidth}px`;
-  detectionBox.style.boxShadow = DETECTION_PARAMS.glowEffect;
   
   // 如果启用了特征点显示，绘制面部特征点
   if (DETECTION_PARAMS.showLandmarks) {

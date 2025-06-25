@@ -1,0 +1,199 @@
+/**
+ * 自定义布局样式 - 指标区域在情绪图表下方
+ */
+
+/* 调整情绪趋势卡片布局 */
+.emotion-trend {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 卡片头部区域布局 */
+.emotion-trend .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 5px 0;
+}
+
+/* 头部左侧容器 */
+.emotion-trend .header-left {
+  display: flex;
+  align-items: center;
+}
+
+/* 头部右侧容器 */
+.emotion-trend .header-right {
+  display: flex;
+  align-items: center;
+}
+
+/* 卡片标题样式增强 */
+.emotion-trend .card-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-bright);
+  letter-spacing: 0.5px;
+}
+
+/* 情绪标签在标题栏右侧 */
+.emotion-trend .emotion-label {
+  margin: 0;
+  padding: 4px 10px;
+  font-size: 0.9rem;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+}
+
+/* 情绪图表容器高度调整 */
+.emotion-trend .chart-container {
+  flex-grow: 1;
+  min-height: 180px;
+}
+
+/* 情绪标签在卡片头部右侧的样式 */
+.emotion-trend .emotion-label {
+  font-size: 14px;
+  font-weight: normal;
+  background: rgba(10, 18, 50, 0.6);
+  padding: 0 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 208, 255, 0.3);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  height: 24px;
+  box-sizing: border-box;
+  cursor: default;
+}
+
+/* 情绪标签发光效果 */
+.emotion-trend .emotion-label::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 208, 255, 0.2), transparent);
+  animation: shimmer 3s infinite;
+  z-index: 1;
+}
+
+/* 定义闪光动画 */
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* 情绪标签hover效果 */
+.emotion-trend .emotion-label:hover {
+  background: rgba(10, 18, 50, 0.8);
+  border-color: rgba(0, 208, 255, 0.5);
+  box-shadow: 0 0 10px rgba(0, 208, 255, 0.3);
+}
+
+/* 情绪标签文本容器 */
+.emotion-trend .emotion-label span {
+  position: relative;
+  z-index: 2;
+}
+
+/* 情绪值的样式 */
+.emotion-trend #emotion {
+  color: #00d0ff;
+  font-weight: 500;
+  text-shadow: 0 0 5px rgba(0, 208, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+/* 实时指标在情绪趋势卡片底部的样式 */
+.emotion-trend .realtime-metrics {
+  margin-top: 10px;
+  padding: 10px 5px;
+  background: rgba(10, 18, 50, 0.4);
+  border-radius: var(--radius-lg);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 实时指标内的单个指标项样式 */
+.emotion-trend .metric {
+  text-align: center;
+  flex: 1;
+  padding: 10px 5px;
+  background: rgba(14, 23, 57, 0.5);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 208, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.emotion-trend .metric::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+.emotion-trend .metric:hover {
+  background: rgba(14, 23, 57, 0.8);
+  box-shadow: 0 0 15px rgba(0, 208, 255, 0.3);
+  border-color: rgba(0, 208, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+/* 指标标签样式 */
+.emotion-trend .metric-label {
+  font-size: 11px;
+  color: #94a3b8;
+  opacity: 0.8;
+  margin-bottom: 4px;
+}
+
+/* 指标数值样式 */
+.emotion-trend .metric-value {
+  font-size: 22px;
+  font-weight: 600;
+  color: #e2e8f0;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* 给不同的指标设置颜色区分 */
+#attention-score {
+  color: #3b82f6;
+  text-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+}
+
+#nervousness-score {
+  color: #f59e0b;
+  text-shadow: 0 0 5px rgba(245, 158, 11, 0.5);
+}
+
+#confidence-score {
+  color: #10b981;
+  text-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
+}
+
+/* 情绪值变化时的动画效果 */
+@keyframes emotion-update {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+.emotion-update {
+  animation: emotion-update 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+} 

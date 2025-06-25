@@ -45,6 +45,9 @@ function initProfilePage() {
   
   // 绑定滑块变化事件（技能熟练度）
   bindRangeInputEvents();
+  
+  // 技能条动画设置
+  setupSkillBars();
 }
 
 // 从本地存储加载个人信息
@@ -690,4 +693,292 @@ function renumberItems(prefix, containerId) {
       deleteBtn.setAttribute('data-delete', `${prefix}-${count}`);
     }
   });
+}
+
+/**
+ * 设置技能条动画
+ */
+function setupSkillBars() {
+  // 找到所有技能条
+  const skillFills = document.querySelectorAll('.skill-fill');
+  
+  // 为每个技能条设置CSS变量和动画
+  skillFills.forEach(fill => {
+    const width = fill.style.width || '0%';
+    fill.style.setProperty('--skill-width', width);
+    fill.style.width = '0%';
+    
+    // 添加到可见性检测
+    observeElement(fill);
+  });
+  
+  // 为左右两侧添加平衡的交互效果
+  setupBalancedLayout();
+  
+  // 初始化左右列末尾对齐功能
+  initColumnsAlignment();
+}
+
+/**
+ * 初始化左右列末尾对齐
+ */
+function initColumnsAlignment() {
+  // 页面加载完后执行对齐
+  window.addEventListener('load', balanceColumnHeights);
+  
+  // 页面大小变化时重新对齐
+  window.addEventListener('resize', debounce(balanceColumnHeights, 200));
+  
+  // 初始执行一次
+  setTimeout(balanceColumnHeights, 500);
+}
+
+/**
+ * 平衡左右列高度，确保末尾对齐
+ */
+function balanceColumnHeights() {
+  const leftColumn = document.querySelector('.profile-left-column');
+  const rightColumn = document.querySelector('.profile-right-column');
+  
+  if (!leftColumn || !rightColumn) return;
+  
+  // 重置高度
+  leftColumn.style.minHeight = 'auto';
+  rightColumn.style.minHeight = 'auto';
+  
+  // 获取当前高度
+  const leftHeight = leftColumn.offsetHeight;
+  const rightHeight = rightColumn.offsetHeight;
+  
+  // 设置为较高的那个高度
+  if (leftHeight > rightHeight) {
+    rightColumn.style.minHeight = leftHeight + 'px';
+  } else if (rightHeight > leftHeight) {
+    leftColumn.style.minHeight = rightHeight + 'px';
+  }
+  
+  // 设置末尾对齐标记位置
+  positionEndMarkers();
+}
+
+/**
+ * 设置末尾对齐标记位置
+ */
+function positionEndMarkers() {
+  const container = document.querySelector('.profile-container');
+  const leftMarker = document.querySelector('.profile-left-column .profile-column-end-marker');
+  const rightMarker = document.querySelector('.profile-right-column .profile-column-end-marker');
+  const alignIndicator = document.querySelector('.profile-align-indicator');
+  
+  if (!container || !leftMarker || !rightMarker || !alignIndicator) return;
+  
+  // 计算容器底部位置
+  const containerBottom = container.offsetHeight - 25;
+  
+  // 设置底部对齐指示器
+  alignIndicator.style.bottom = '0';
+  
+  // 使两个标记水平对齐显示
+  leftMarker.style.bottom = '0';
+  rightMarker.style.bottom = '0';
+  
+  // 添加脉冲动画
+  leftMarker.style.animation = 'pulse-glow 2s infinite';
+  rightMarker.style.animation = 'pulse-glow 2s infinite';
+  rightMarker.style.animationDelay = '1s';
+}
+
+/**
+ * 防抖函数，优化事件处理
+ */
+function debounce(func, wait) {
+  let timeout;
+  return function() {
+    const context = this;
+    const args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      func.apply(context, args);
+    }, wait);
+  };
+}
+
+/**
+ * 为左右两栏布局添加平衡的交互效果
+ */
+function setupBalancedLayout() {
+  // 添加鼠标悬停效果到每个section
+  const sections = document.querySelectorAll('.profile-section');
+  sections.forEach(section => {
+    section.addEventListener('mouseenter', () => {
+      // 如果在左侧栏
+      if (section.closest('.profile-left-column')) {
+        applyActiveEffectToColumn('.profile-left-column');
+      } 
+      // 如果在右侧栏
+      else if (section.closest('.profile-right-column')) {
+        applyActiveEffectToColumn('.profile-right-column');
+      }
+    });
+    
+    section.addEventListener('mouseleave', () => {
+      resetColumnsEffect();
+    });
+  });
+  
+  // 初始化滚动动画
+  setupScrollEffects();
+}
+
+/**
+ * 强调激活的列，弱化另一列
+ */
+function applyActiveEffectToColumn(activeColumnSelector) {
+  const activeColumn = document.querySelector(activeColumnSelector);
+  const inactiveColumn = activeColumnSelector === '.profile-left-column' ? 
+    document.querySelector('.profile-right-column') : 
+    document.querySelector('.profile-left-column');
+  
+  if (activeColumn && inactiveColumn) {
+    activeColumn.style.opacity = '1';
+    activeColumn.style.transform = 'scale(1.01)';
+    inactiveColumn.style.opacity = '0.85';
+    inactiveColumn.style.transform = 'scale(0.99)';
+  }
+}
+
+/**
+ * 重置列效果
+ */
+function resetColumnsEffect() {
+  const leftColumn = document.querySelector('.profile-left-column');
+  const rightColumn = document.querySelector('.profile-right-column');
+  
+  if (leftColumn && rightColumn) {
+    leftColumn.style.opacity = '1';
+    leftColumn.style.transform = 'scale(1)';
+    rightColumn.style.opacity = '1';
+    rightColumn.style.transform = 'scale(1)';
+  }
+}
+
+/**
+ * 设置滚动动画效果
+ */
+function setupScrollEffects() {
+  // 保存所有需要动画的元素
+  const animElements = [
+    ...document.querySelectorAll('.profile-left-column .profile-section'),
+    ...document.querySelectorAll('.profile-right-column .profile-section')
+  ];
+  
+  // 为每个元素设置交错动画
+  animElements.forEach((element, index) => {
+    // 设置透明度为0，准备进行渐入动画
+    element.style.opacity = '0';
+    element.style.transform = 'translateY(20px)';
+    element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    
+    // 添加到滚动观察器
+    observeScrollAnimation(element, index * 100); // 每个元素延迟100ms
+  });
+  
+  // 特殊处理联系信息项目动画
+  const contactItems = document.querySelectorAll('.contact-item');
+  contactItems.forEach((item, index) => {
+    item.style.opacity = '0';
+    item.style.transform = 'translateX(-10px)';
+    item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    
+    observeScrollAnimation(item, 500 + index * 100); // 联系信息项目更晚出现
+  });
+  
+  // 技能项目动画
+  const skillItems = document.querySelectorAll('.skill-item');
+  skillItems.forEach((item, index) => {
+    item.style.opacity = '0';
+    item.style.transform = 'translateX(-10px)';
+    item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    
+    observeScrollAnimation(item, 400 + index * 80);
+  });
+}
+
+/**
+ * 监听元素的滚动位置并应用动画
+ */
+function observeScrollAnimation(element, delay = 0) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          element.style.opacity = '1';
+          element.style.transform = 'translate(0)';
+        }, delay);
+        
+        observer.unobserve(element);
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  observer.observe(element);
+}
+
+/**
+ * 检测元素可见性并触发动画
+ */
+function observeElement(element) {
+  // 创建一个Intersection Observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // 元素进入可视区域，设置动画
+        setTimeout(() => {
+          const width = element.style.getPropertyValue('--skill-width');
+          element.style.width = width;
+        }, 200);
+        
+        // 停止观察
+        observer.unobserve(element);
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  // 开始观察元素
+  observer.observe(element);
+}
+
+/**
+ * 显示通知
+ */
+function showNotification(message, type = 'info') {
+  // 检查是否已经有通知系统
+  if (typeof showToast === 'function') {
+    showToast(message, type);
+    return;
+  }
+  
+  // 创建简单通知
+  const notification = document.createElement('div');
+  notification.className = `notification ${type}`;
+  notification.innerHTML = `
+    <div class="notification-content">
+      <span>${message}</span>
+    </div>
+  `;
+  
+  document.body.appendChild(notification);
+  
+  // 显示通知
+  setTimeout(() => {
+    notification.classList.add('show');
+  }, 10);
+  
+  // 自动关闭
+  setTimeout(() => {
+    notification.classList.remove('show');
+    setTimeout(() => {
+      notification.remove();
+    }, 300);
+  }, 3000);
 } 

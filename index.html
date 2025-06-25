@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI智能面试分析系统 | 超级科技感可视化大屏</title>
+    <title>AI面试</title>
     <meta name="description" content="基于AI视觉技术的智能面试分析系统，实时面部情绪识别和数据可视化，采用未来科技风格设计">
+    <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/resume-layout.css">
     <link rel="stylesheet" href="styles/notifications.css">
     <!-- 引入增强UI样式 -->
     <link rel="stylesheet" href="styles/enhanced.css">
@@ -13,16 +15,40 @@
     <link rel="stylesheet" href="styles/video-enhanced.css">
     <!-- 引入视频清晰样式，覆盖之前的效果 -->
     <link rel="stylesheet" href="styles/video-clear.css">
+    <!-- 引入隐藏检测框样式 -->
+    <link rel="stylesheet" href="styles/no-detection-box.css">
     <!-- 引入未来风格增强 -->
     <link rel="stylesheet" href="styles/futuristic.css">
     <!-- 引入高级UI样式增强 -->
     <link rel="stylesheet" href="styles/advanced-ui.css">
+    <!-- 引入图表和显示条UI增强样式 -->
+    <link rel="stylesheet" href="styles/chart-enhance.css">
+    <!-- 引入全局UI增强样式 -->
+    <link rel="stylesheet" href="styles/global-enhance.css">
+    <!-- 引入科幻动画效果样式 -->
+    <link rel="stylesheet" href="styles/sci-fi-animations.css">
     <!-- 引入个人主页样式 -->
     <link rel="stylesheet" href="styles/profile.css">
+    <!-- 引入终极UI视觉体验增强 -->
+    <link rel="stylesheet" href="styles/ultimate-enhancement.css">
+    <!-- 引入高级微交互效果 -->
+    <link rel="stylesheet" href="styles/micro-interactions.css">
+    <!-- 引入悬浮装饰元素 -->
+    <link rel="stylesheet" href="styles/floating-elements.css">
+    <!-- 引入自定义布局样式 -->
+    <link rel="stylesheet" href="styles/custom-layout.css">
+    <!-- 引入七彩渐变指标样式 -->
+    <link rel="stylesheet" href="styles/rainbow-metrics.css">
+    <!-- 引入可拖动聊天组件增强样式 -->
+    <link rel="stylesheet" href="styles/enhanced-draggable-chat.css">
+    <!-- 引入布局调整样式 -->
+    <link rel="stylesheet" href="styles/layout-adjustment.css">
     <!-- 引入字体 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- 引入Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- 引入图表库 -->
     <script defer src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
     <!-- 引入人脸检测库 - 更新为更可靠的CDN -->
@@ -34,7 +60,7 @@
         <header class="header">
             <div class="logo">
                 <div class="logo-icon"></div>
-                <h1>AI智能面试分析系统</h1>
+                <h1>AI面试系统</h1>
             </div>
             <nav class="navigation">
                 <ul>
@@ -60,25 +86,16 @@
                 <div class="interview-grid">
                     <!-- 情绪变化趋势 -->
                     <div class="card emotion-trend">
-                        <h3>情绪变化趋势</h3>
-                        <div class="chart-container" id="emotion-chart"></div>
-                    </div>
-
-                    <!-- 视频区域 -->
-                    <section class="video-container">
-                        <div class="video-wrapper">
-                            <video id="webcam" autoplay playsinline muted></video>
-                            <div class="video-overlay">
-                                <div class="detection-box">
-                                    <div class="corner-tl"></div>
-                                    <div class="corner-tr"></div>
-                                    <div class="corner-bl"></div>
-                                    <div class="corner-br"></div>
-                                    <div class="scan-line"></div>
-                                </div>
+                        <div class="card-header">
+                            <div class="header-left">
+                                <h3>情绪变化趋势</h3>
+                            </div>
+                            <div class="header-right">
                                 <div class="emotion-label">情绪: <span id="emotion">未检测</span></div>
                             </div>
                         </div>
+                        <div class="chart-container" id="emotion-chart"></div>
+                        <!-- 移动的实时指标区域 -->
                         <div class="realtime-metrics">
                             <div class="metric">
                                 <div class="metric-label">注意力指数</div>
@@ -93,6 +110,22 @@
                                 <div class="metric-value" id="confidence-score">87</div>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- 视频区域 -->
+                    <section class="video-container">
+                        <div class="video-wrapper">
+                            <video id="webcam" autoplay playsinline muted></video>
+                            <div class="video-overlay">
+                                <div class="detection-box">
+                                    <div class="corner-tl"></div>
+                                    <div class="corner-tr"></div>
+                                    <div class="corner-bl"></div>
+                                    <div class="corner-br"></div>
+                                    <div class="scan-line"></div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
 
                     <!-- 语音分析 -->
@@ -102,15 +135,36 @@
                         <div class="metrics-grid">
                             <div class="metric-item">
                                 <span class="label">语速</span>
-                                <span class="value" id="speech-rate">适中</span>
+                                <div class="realtime-value-container">
+                                    <span class="value" id="speech-rate">适中</span>
+                                    <div class="realtime-indicator">
+                                        <div class="realtime-dot"></div>
+                                        <div class="realtime-dot"></div>
+                                        <div class="realtime-dot"></div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="metric-item">
                                 <span class="label">停顿频率</span>
-                                <span class="value" id="pause-frequency">低</span>
+                                <div class="realtime-value-container">
+                                    <span class="value" id="pause-frequency">低</span>
+                                    <div class="realtime-indicator">
+                                        <div class="realtime-dot"></div>
+                                        <div class="realtime-dot"></div>
+                                        <div class="realtime-dot"></div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="metric-item">
                                 <span class="label">声音清晰度</span>
-                                <span class="value" id="voice-clarity">高</span>
+                                <div class="realtime-value-container">
+                                    <span class="value" id="voice-clarity">高</span>
+                                    <div class="realtime-indicator">
+                                        <div class="realtime-dot"></div>
+                                        <div class="realtime-dot"></div>
+                                        <div class="realtime-dot"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -295,271 +349,356 @@
                 <div class="page-title">
                     <h2>个人主页</h2>
                     <div class="profile-actions">
-                        <button class="profile-save-btn" id="save-profile">保存更新</button>
+                        <button class="profile-save-btn" id="save-profile" data-tooltip="保存个人信息">保存更新</button>
                     </div>
                 </div>
                 <div class="profile-container">
-                    <!-- 基本信息 -->
-                    <div class="profile-section" id="basic-info">
-                        <h3>基本信息</h3>
-                        <div class="profile-form">
-                            <div class="profile-form-row">
-                                <div class="profile-form-group half-width">
-                                    <label for="profile-name">姓名</label>
-                                    <input type="text" id="profile-name" placeholder="请输入姓名">
+                    <!-- 左侧栏 - 个人信息和技能 -->
+                    <div class="profile-left-column">
+                        <!-- 个人头像和基本信息 -->
+                        <div class="profile-section" id="profile-avatar-section">
+                            <div class="profile-avatar-section">
+                                <div class="profile-avatar" id="profile-avatar"></div>
+                                <div class="profile-name-title">
+                                    <h3 class="profile-name" id="profile-display-name">您的姓名</h3>
+                                    <div class="profile-title" id="profile-display-title">期望职位</div>
                                 </div>
-                                <div class="profile-form-group half-width">
-                                    <label for="profile-gender">性别</label>
-                                    <select id="profile-gender">
-                                        <option value="">请选择</option>
-                                        <option value="male">男</option>
-                                        <option value="female">女</option>
-                                        <option value="other">其他</option>
-                                    </select>
+                                <div class="contact-info">
+                                    <div class="contact-item">
+                                        <div class="contact-icon">📱</div>
+                                        <span id="profile-display-phone">手机号码</span>
+                                    </div>
+                                    <div class="contact-item">
+                                        <div class="contact-icon">📧</div>
+                                        <span id="profile-display-email">电子邮箱</span>
+                                    </div>
+                                    <div class="contact-item">
+                                        <div class="contact-icon">📍</div>
+                                        <span id="profile-display-address">现居地址</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="profile-form-row">
-                                <div class="profile-form-group half-width">
-                                    <label for="profile-phone">手机号</label>
-                                    <input type="tel" id="profile-phone" placeholder="请输入手机号">
-                                </div>
-                                <div class="profile-form-group half-width">
-                                    <label for="profile-email">邮箱</label>
-                                    <input type="email" id="profile-email" placeholder="请输入邮箱">
-                                </div>
-                            </div>
-                            <div class="profile-form-row">
-                                <div class="profile-form-group half-width">
-                                    <label for="profile-birthday">出生日期</label>
-                                    <input type="date" id="profile-birthday">
-                                </div>
-                                <div class="profile-form-group half-width">
-                                    <label for="profile-education">最高学历</label>
-                                    <select id="profile-education">
-                                        <option value="">请选择</option>
-                                        <option value="高中">高中</option>
-                                        <option value="大专">大专</option>
-                                        <option value="本科">本科</option>
-                                        <option value="硕士">硕士</option>
-                                        <option value="博士">博士</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="profile-form-group">
-                                <label for="profile-address">现居地址</label>
-                                <input type="text" id="profile-address" placeholder="请输入现居地址">
                             </div>
                         </div>
-                    </div>
-
-                    <!-- 求职意向 -->
-                    <div class="profile-section" id="job-intention">
-                        <h3>求职意向</h3>
-                        <div class="profile-form">
-                            <div class="profile-form-row">
-                                <div class="profile-form-group half-width">
-                                    <label for="profile-position">期望职位</label>
-                                    <input type="text" id="profile-position" placeholder="请输入期望职位">
-                                </div>
-                                <div class="profile-form-group half-width">
-                                    <label for="profile-industry">期望行业</label>
-                                    <input type="text" id="profile-industry" placeholder="请输入期望行业">
-                                </div>
-                            </div>
-                            <div class="profile-form-row">
-                                <div class="profile-form-group half-width">
-                                    <label for="profile-salary">期望薪资</label>
-                                    <select id="profile-salary">
-                                        <option value="">请选择</option>
-                                        <option value="1">3k以下</option>
-                                        <option value="2">3k-5k</option>
-                                        <option value="3">5k-10k</option>
-                                        <option value="4">10k-15k</option>
-                                        <option value="5">15k-20k</option>
-                                        <option value="6">20k-30k</option>
-                                        <option value="7">30k以上</option>
-                                    </select>
-                                </div>
-                                <div class="profile-form-group half-width">
-                                    <label for="profile-work-type">工作类型</label>
-                                    <select id="profile-work-type">
-                                        <option value="">请选择</option>
-                                        <option value="full-time">全职</option>
-                                        <option value="part-time">兼职</option>
-                                        <option value="intern">实习</option>
-                                        <option value="remote">远程</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="profile-form-group">
-                                <label for="profile-job-location">期望工作地点</label>
-                                <input type="text" id="profile-job-location" placeholder="请输入期望工作地点">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 技能特长 -->
-                    <div class="profile-section" id="skills">
-                        <h3>技能特长</h3>
-                        <div class="profile-form" id="skills-container">
-                            <div class="skill-item">
+                        
+                        <!-- 基本信息表单 -->
+                        <div class="profile-section" id="basic-info">
+                            <h3 class="section-title">基本信息</h3>
+                            <div class="profile-form">
                                 <div class="profile-form-row">
                                     <div class="profile-form-group half-width">
-                                        <label for="skill-name-1">技能名称</label>
-                                        <input type="text" id="skill-name-1" placeholder="如：Java编程">
+                                        <label for="profile-name">姓名</label>
+                                        <input type="text" id="profile-name" placeholder="请输入姓名">
                                     </div>
                                     <div class="profile-form-group half-width">
+                                        <label for="profile-gender">性别</label>
+                                        <select id="profile-gender">
+                                            <option value="">请选择</option>
+                                            <option value="male">男</option>
+                                            <option value="female">女</option>
+                                            <option value="other">其他</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="profile-form-row">
+                                    <div class="profile-form-group half-width">
+                                        <label for="profile-phone">手机号</label>
+                                        <input type="tel" id="profile-phone" placeholder="请输入手机号">
+                                    </div>
+                                    <div class="profile-form-group half-width">
+                                        <label for="profile-email">邮箱</label>
+                                        <input type="email" id="profile-email" placeholder="请输入邮箱">
+                                    </div>
+                                </div>
+                                <div class="profile-form-row">
+                                    <div class="profile-form-group half-width">
+                                        <label for="profile-birthday">出生日期</label>
+                                        <input type="date" id="profile-birthday">
+                                    </div>
+                                    <div class="profile-form-group half-width">
+                                        <label for="profile-education">最高学历</label>
+                                        <select id="profile-education">
+                                            <option value="">请选择</option>
+                                            <option value="高中">高中</option>
+                                            <option value="大专">大专</option>
+                                            <option value="本科">本科</option>
+                                            <option value="硕士">硕士</option>
+                                            <option value="博士">博士</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="profile-form-group">
+                                    <label for="profile-address">现居地址</label>
+                                    <input type="text" id="profile-address" placeholder="请输入现居地址">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 技能特长 -->
+                        <div class="profile-section" id="skills">
+                            <h3 class="section-title">技能特长</h3>
+                            <div class="profile-form" id="skills-container">
+                                <div class="skill-item">
+                                    <div class="skill-header">
+                                        <span class="skill-name">Java编程</span>
+                                        <span class="skill-percent">75%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-fill" style="width: 75%"></div>
+                                    </div>
+                                    <div class="profile-form-group" style="display: none;">
+                                        <label for="skill-name-1">技能名称</label>
+                                        <input type="text" id="skill-name-1" placeholder="如：Java编程" value="Java编程">
+                                    </div>
+                                    <div class="profile-form-group" style="display: none;">
                                         <label for="skill-level-1">熟练度</label>
                                         <div class="skill-level">
                                             <input type="range" id="skill-level-1" class="range-input" min="0" max="100" value="75">
-                                            <span class="skill-percent">75%</span>
                                         </div>
                                     </div>
+                                    <div class="profile-form-group" style="display: none;">
+                                        <label for="skill-desc-1">技能描述</label>
+                                        <textarea id="skill-desc-1" placeholder="请描述该技能的具体情况和掌握程度"></textarea>
+                                    </div>
                                 </div>
-                                <div class="profile-form-group">
-                                    <label for="skill-desc-1">技能描述</label>
-                                    <textarea id="skill-desc-1" placeholder="请描述该技能的具体情况和掌握程度"></textarea>
+                                <div class="add-experience" id="add-skill">
+                                    添加技能
                                 </div>
-                            </div>
-                            <div class="add-experience" id="add-skill">
-                                添加技能
                             </div>
                         </div>
-                    </div>
-
-                    <!-- 获奖证书 -->
-                    <div class="profile-section" id="certificates">
-                        <h3>获奖证书</h3>
-                        <div class="profile-form" id="certificates-container">
-                            <div class="experience-item">
-                                <div class="profile-form-row">
-                                    <div class="profile-form-group half-width">
-                                        <label for="cert-name-1">证书名称</label>
-                                        <input type="text" id="cert-name-1" placeholder="如：英语四级证书">
+                        
+                        <!-- 获奖证书 -->
+                        <div class="profile-section" id="certificates">
+                            <h3 class="section-title">获奖证书</h3>
+                            <div class="profile-form" id="certificates-container">
+                                <div class="experience-item">
+                                    <div class="experience-header">
+                                        <div>
+                                            <div class="experience-title">英语四级证书</div>
+                                        </div>
+                                        <div class="experience-date">2022-06-15</div>
                                     </div>
-                                    <div class="profile-form-group half-width">
-                                        <label for="cert-date-1">获得日期</label>
-                                        <input type="date" id="cert-date-1">
+                                    <div class="experience-description">
+                                        大学英语四级考试成绩优秀，获得证书
+                                    </div>
+                                    <div class="profile-form-row" style="display: none;">
+                                        <div class="profile-form-group half-width">
+                                            <label for="cert-name-1">证书名称</label>
+                                            <input type="text" id="cert-name-1" placeholder="如：英语四级证书" value="英语四级证书">
+                                        </div>
+                                        <div class="profile-form-group half-width">
+                                            <label for="cert-date-1">获得日期</label>
+                                            <input type="date" id="cert-date-1" value="2022-06-15">
+                                        </div>
+                                    </div>
+                                    <div class="profile-form-group" style="display: none;">
+                                        <label for="cert-desc-1">证书描述</label>
+                                        <textarea id="cert-desc-1" placeholder="请描述获得该证书的背景和含义">大学英语四级考试成绩优秀，获得证书</textarea>
                                     </div>
                                 </div>
-                                <div class="profile-form-group">
-                                    <label for="cert-desc-1">证书描述</label>
-                                    <textarea id="cert-desc-1" placeholder="请描述获得该证书的背景和含义"></textarea>
+                                <div class="add-experience" id="add-certificate">
+                                    添加证书
                                 </div>
-                            </div>
-                            <div class="add-experience" id="add-certificate">
-                                添加证书
                             </div>
                         </div>
+                        
+                        <!-- 末尾对齐标记 -->
+                        <div class="profile-column-end-marker"></div>
+                        <div class="column-connector left-connector"></div>
                     </div>
-
-                    <!-- 实习经历 -->
-                    <div class="profile-section" id="internships">
-                        <h3>实习经历</h3>
-                        <div class="profile-form" id="internships-container">
-                            <div class="experience-item">
+                    
+                    <!-- 右侧栏 - 工作经历和教育背景 -->
+                    <div class="profile-right-column">
+                        <!-- 求职意向 -->
+                        <div class="profile-section" id="job-intention">
+                            <h3 class="section-title">求职意向</h3>
+                            <div class="profile-form">
                                 <div class="profile-form-row">
                                     <div class="profile-form-group half-width">
-                                        <label for="intern-company-1">公司名称</label>
-                                        <input type="text" id="intern-company-1" placeholder="如：XX科技有限公司">
+                                        <label for="profile-position">期望职位</label>
+                                        <input type="text" id="profile-position" placeholder="请输入期望职位">
                                     </div>
                                     <div class="profile-form-group half-width">
-                                        <label for="intern-position-1">职位</label>
-                                        <input type="text" id="intern-position-1" placeholder="如：前端开发实习生">
+                                        <label for="profile-industry">期望行业</label>
+                                        <input type="text" id="profile-industry" placeholder="请输入期望行业">
                                     </div>
                                 </div>
                                 <div class="profile-form-row">
                                     <div class="profile-form-group half-width">
-                                        <label for="intern-start-1">开始日期</label>
-                                        <input type="date" id="intern-start-1">
+                                        <label for="profile-salary">期望薪资</label>
+                                        <select id="profile-salary">
+                                            <option value="">请选择</option>
+                                            <option value="1">3k以下</option>
+                                            <option value="2">3k-5k</option>
+                                            <option value="3">5k-10k</option>
+                                            <option value="4">10k-15k</option>
+                                            <option value="5">15k-20k</option>
+                                            <option value="6">20k-30k</option>
+                                            <option value="7">30k以上</option>
+                                        </select>
                                     </div>
                                     <div class="profile-form-group half-width">
-                                        <label for="intern-end-1">结束日期</label>
-                                        <input type="date" id="intern-end-1">
-                                    </div>
-                                </div>
-                                <div class="profile-form-group">
-                                    <label for="intern-desc-1">工作描述</label>
-                                    <textarea id="intern-desc-1" placeholder="请描述你的主要工作内容和成就"></textarea>
-                                </div>
-                            </div>
-                            <div class="add-experience" id="add-internship">
-                                添加实习经历
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 项目经历 -->
-                    <div class="profile-section" id="projects">
-                        <h3>项目经历</h3>
-                        <div class="profile-form" id="projects-container">
-                            <div class="experience-item">
-                                <div class="profile-form-row">
-                                    <div class="profile-form-group half-width">
-                                        <label for="project-name-1">项目名称</label>
-                                        <input type="text" id="project-name-1" placeholder="如：电商平台开发">
-                                    </div>
-                                    <div class="profile-form-group half-width">
-                                        <label for="project-role-1">担任角色</label>
-                                        <input type="text" id="project-role-1" placeholder="如：前端开发工程师">
-                                    </div>
-                                </div>
-                                <div class="profile-form-row">
-                                    <div class="profile-form-group half-width">
-                                        <label for="project-start-1">开始日期</label>
-                                        <input type="date" id="project-start-1">
-                                    </div>
-                                    <div class="profile-form-group half-width">
-                                        <label for="project-end-1">结束日期</label>
-                                        <input type="date" id="project-end-1">
+                                        <label for="profile-work-type">工作类型</label>
+                                        <select id="profile-work-type">
+                                            <option value="">请选择</option>
+                                            <option value="full-time">全职</option>
+                                            <option value="part-time">兼职</option>
+                                            <option value="intern">实习</option>
+                                            <option value="remote">远程</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="profile-form-group">
-                                    <label for="project-desc-1">项目描述</label>
-                                    <textarea id="project-desc-1" placeholder="请描述项目的背景、你的职责和成就"></textarea>
+                                    <label for="profile-job-location">期望工作地点</label>
+                                    <input type="text" id="profile-job-location" placeholder="请输入期望工作地点">
                                 </div>
-                            </div>
-                            <div class="add-experience" id="add-project">
-                                添加项目经历
                             </div>
                         </div>
-                    </div>
-
-                    <!-- 工作经历 -->
-                    <div class="profile-section" id="work-experience">
-                        <h3>工作经历</h3>
-                        <div class="profile-form" id="work-container">
-                            <div class="experience-item">
-                                <div class="profile-form-row">
-                                    <div class="profile-form-group half-width">
-                                        <label for="work-company-1">公司名称</label>
-                                        <input type="text" id="work-company-1" placeholder="如：XX科技有限公司">
+                        
+                        <!-- 工作经历 -->
+                        <div class="profile-section" id="work-experience">
+                            <h3 class="section-title">工作经历</h3>
+                            <div class="profile-form" id="work-container">
+                                <div class="experience-item">
+                                    <div class="experience-header">
+                                        <div>
+                                            <div class="experience-title">前端开发工程师</div>
+                                            <div class="experience-subtitle">XX科技有限公司</div>
+                                        </div>
+                                        <div class="experience-date">2021-06 至 2023-05</div>
                                     </div>
-                                    <div class="profile-form-group half-width">
-                                        <label for="work-position-1">职位</label>
-                                        <input type="text" id="work-position-1" placeholder="如：前端开发工程师">
+                                    <div class="experience-description">
+                                        负责公司核心产品的前端开发工作，使用React技术栈进行开发，实现了多个关键功能模块，提升了产品用户体验。
+                                    </div>
+                                    <div class="profile-form-row" style="display: none;">
+                                        <div class="profile-form-group half-width">
+                                            <label for="work-company-1">公司名称</label>
+                                            <input type="text" id="work-company-1" placeholder="如：XX科技有限公司" value="XX科技有限公司">
+                                        </div>
+                                        <div class="profile-form-group half-width">
+                                            <label for="work-position-1">职位</label>
+                                            <input type="text" id="work-position-1" placeholder="如：前端开发工程师" value="前端开发工程师">
+                                        </div>
+                                    </div>
+                                    <div class="profile-form-row" style="display: none;">
+                                        <div class="profile-form-group half-width">
+                                            <label for="work-start-1">开始日期</label>
+                                            <input type="date" id="work-start-1" value="2021-06-01">
+                                        </div>
+                                        <div class="profile-form-group half-width">
+                                            <label for="work-end-1">结束日期</label>
+                                            <input type="date" id="work-end-1" value="2023-05-31">
+                                        </div>
+                                    </div>
+                                    <div class="profile-form-group" style="display: none;">
+                                        <label for="work-desc-1">工作描述</label>
+                                        <textarea id="work-desc-1" placeholder="请描述你的主要工作内容和成就">负责公司核心产品的前端开发工作，使用React技术栈进行开发，实现了多个关键功能模块，提升了产品用户体验。</textarea>
                                     </div>
                                 </div>
-                                <div class="profile-form-row">
-                                    <div class="profile-form-group half-width">
-                                        <label for="work-start-1">开始日期</label>
-                                        <input type="date" id="work-start-1">
-                                    </div>
-                                    <div class="profile-form-group half-width">
-                                        <label for="work-end-1">结束日期</label>
-                                        <input type="date" id="work-end-1">
-                                    </div>
+                                <div class="add-experience" id="add-work">
+                                    添加工作经历
                                 </div>
-                                <div class="profile-form-group">
-                                    <label for="work-desc-1">工作描述</label>
-                                    <textarea id="work-desc-1" placeholder="请描述你的主要工作内容和成就"></textarea>
-                                </div>
-                            </div>
-                            <div class="add-experience" id="add-work">
-                                添加工作经历
                             </div>
                         </div>
+                        
+                        <!-- 项目经历 -->
+                        <div class="profile-section" id="projects">
+                            <h3 class="section-title">项目经历</h3>
+                            <div class="profile-form" id="projects-container">
+                                <div class="experience-item">
+                                    <div class="experience-header">
+                                        <div>
+                                            <div class="experience-title">电商平台开发</div>
+                                            <div class="experience-subtitle">前端开发工程师</div>
+                                        </div>
+                                        <div class="experience-date">2022-03 至 2022-09</div>
+                                    </div>
+                                    <div class="experience-description">
+                                        负责电商平台的前端架构设计和核心模块开发，实现了高性能的商品展示和购物车功能，提升了用户转化率。
+                                    </div>
+                                    <div class="profile-form-row" style="display: none;">
+                                        <div class="profile-form-group half-width">
+                                            <label for="project-name-1">项目名称</label>
+                                            <input type="text" id="project-name-1" placeholder="如：电商平台开发" value="电商平台开发">
+                                        </div>
+                                        <div class="profile-form-group half-width">
+                                            <label for="project-role-1">担任角色</label>
+                                            <input type="text" id="project-role-1" placeholder="如：前端开发工程师" value="前端开发工程师">
+                                        </div>
+                                    </div>
+                                    <div class="profile-form-row" style="display: none;">
+                                        <div class="profile-form-group half-width">
+                                            <label for="project-start-1">开始日期</label>
+                                            <input type="date" id="project-start-1" value="2022-03-01">
+                                        </div>
+                                        <div class="profile-form-group half-width">
+                                            <label for="project-end-1">结束日期</label>
+                                            <input type="date" id="project-end-1" value="2022-09-30">
+                                        </div>
+                                    </div>
+                                    <div class="profile-form-group" style="display: none;">
+                                        <label for="project-desc-1">项目描述</label>
+                                        <textarea id="project-desc-1" placeholder="请描述项目的背景、你的职责和成就">负责电商平台的前端架构设计和核心模块开发，实现了高性能的商品展示和购物车功能，提升了用户转化率。</textarea>
+                                    </div>
+                                </div>
+                                <div class="add-experience" id="add-project">
+                                    添加项目经历
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 实习经历 -->
+                        <div class="profile-section" id="internships">
+                            <h3 class="section-title">实习经历</h3>
+                            <div class="profile-form" id="internships-container">
+                                <div class="experience-item">
+                                    <div class="experience-header">
+                                        <div>
+                                            <div class="experience-title">前端开发实习生</div>
+                                            <div class="experience-subtitle">XX科技有限公司</div>
+                                        </div>
+                                        <div class="experience-date">2020-07 至 2020-10</div>
+                                    </div>
+                                    <div class="experience-description">
+                                        参与公司Web应用的开发和维护工作，学习了前端开发流程和团队协作，独立完成了多个页面的开发任务。
+                                    </div>
+                                    <div class="profile-form-row" style="display: none;">
+                                        <div class="profile-form-group half-width">
+                                            <label for="intern-company-1">公司名称</label>
+                                            <input type="text" id="intern-company-1" placeholder="如：XX科技有限公司" value="XX科技有限公司">
+                                        </div>
+                                        <div class="profile-form-group half-width">
+                                            <label for="intern-position-1">职位</label>
+                                            <input type="text" id="intern-position-1" placeholder="如：前端开发实习生" value="前端开发实习生">
+                                        </div>
+                                    </div>
+                                    <div class="profile-form-row" style="display: none;">
+                                        <div class="profile-form-group half-width">
+                                            <label for="intern-start-1">开始日期</label>
+                                            <input type="date" id="intern-start-1" value="2020-07-01">
+                                        </div>
+                                        <div class="profile-form-group half-width">
+                                            <label for="intern-end-1">结束日期</label>
+                                            <input type="date" id="intern-end-1" value="2020-10-31">
+                                        </div>
+                                    </div>
+                                    <div class="profile-form-group" style="display: none;">
+                                        <label for="intern-desc-1">工作描述</label>
+                                        <textarea id="intern-desc-1" placeholder="请描述你的主要工作内容和成就">参与公司Web应用的开发和维护工作，学习了前端开发流程和团队协作，独立完成了多个页面的开发任务。</textarea>
+                                    </div>
+                                </div>
+                                <div class="add-experience" id="add-internship">
+                                    添加实习经历
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 末尾对齐标记 -->
+                        <div class="profile-column-end-marker"></div>
+                        <div class="column-connector right-connector"></div>
                     </div>
+                    
+                    <!-- 对齐指示器 -->
+                    <div class="profile-align-indicator"></div>
                 </div>
             </div>
 
@@ -640,6 +779,7 @@
                 <h2>开始新面试</h2>
                 <button class="close-modal">&times;</button>
             </div>
+            
             <div class="modal-body">
                 <div class="form-group">
                     <label for="interview-name">面试名称</label>
@@ -725,19 +865,19 @@
         </div>
     </div>
 
-    <!-- 加载脚本 -->
-    <script src="js/app.js"></script>
-    <script src="js/charts.js"></script>
+    <!-- JS模块引用 -->
     <script src="js/face-detection.js"></script>
-    <!-- 加载增强图表效果脚本 -->
+    <script src="js/charts.js"></script>
     <script src="js/enhanced-charts.js"></script>
-    <!-- 加载高级图表特效 -->
     <script src="js/chart-fx.js"></script>
-    <!-- 加载悬停交互效果 -->
-    <script src="js/hover-effects.js"></script>
-    <!-- 加载个人主页和登录逻辑 -->
-    <script src="js/profile.js"></script>
+    <script src="js/chart-visual-enhance.js"></script>
+    <script src="js/global-effects.js"></script>
+    <script src="js/sci-fi-effects.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/hover-effects.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/resume-enhance.js"></script>
+    <script src="js/app.js"></script>
 
     <!-- 科技元素背景效果 -->
     <div class="tech-lines">
@@ -745,6 +885,64 @@
         <div class="tech-line" style="top: 40%;"></div>
         <div class="tech-line" style="top: 60%;"></div>
         <div class="tech-line" style="top: 80%;"></div>
+    </div>
+
+    <!-- 悬浮装饰元素 -->
+    <div class="floating-elements">
+        <!-- 动态生成的浮动元素将由JS添加 -->
+    </div>
+    
+    <!-- 角落装饰 -->
+    <div class="corner-decorator top-left"></div>
+    <div class="corner-decorator top-right"></div>
+    <div class="corner-decorator bottom-left"></div>
+    <div class="corner-decorator bottom-right"></div>
+
+    <!-- 滚动指示器 -->
+    <div class="scroll-indicator" id="scroll-to-top"></div>
+
+    <!-- 引入微交互处理脚本 -->
+    <script src="js/micro-interactions.js"></script>
+    <!-- 引入悬浮元素生成脚本 -->
+    <script src="js/floating-elements.js"></script>
+    <!-- 引入语音分析实时指标脚本 -->
+    <script src="js/speech-realtime.js"></script>
+
+    <!-- 新增面试功能脚本 -->
+    <script src="js/interview-questions.js"></script>
+    <script src="js/speech-recognition.js"></script>
+    <script src="js/interview-conductor.js"></script>
+    
+    <!-- 情绪处理脚本 -->
+    <script src="js/emotion-handler.js"></script>
+    
+    <!-- 引入七彩渐变指标脚本 -->
+    <script src="js/rainbow-metrics.js"></script>
+    
+    <!-- 主应用脚本 -->
+    <script src="js/app.js"></script>
+    <!-- 拖动聊天组件脚本 -->
+    <script src="js/draggable-chat.js"></script>
+
+    <!-- 可拖动聊天组件 -->
+    <div id="draggable-chat" class="draggable-chat">
+        <div class="drag-handle">
+            <div class="handle-dots"></div>
+            <span>AI面试官</span>
+            <button id="minimize-chat" class="chat-control">_</button>
+            <button id="close-chat" class="chat-control">×</button>
+        </div>
+        <div class="chat-content">
+            <iframe
+                src="https://app.qiaoqiaoyun.com/ai/app/chat/1937594938862637057"
+                style="width: 100%; height: 100%;">
+            </iframe>
+        </div>
+    </div>
+
+    <!-- 聊天托盘图标 -->
+    <div id="chat-tray" class="chat-tray-icon">
+        <i class="fas fa-comments"></i>
     </div>
 </body>
 </html> 

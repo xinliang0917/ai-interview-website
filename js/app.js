@@ -75,6 +75,9 @@ function initApp() {
   // 添加科技感动画效果
   addTechEffects();
   
+  // 加载历史记录列表
+  loadHistoryList();
+  
   // 显示欢迎通知
   showNotification('AI智能面试系统已就绪', 'info');
   
@@ -104,6 +107,11 @@ function bindNavigation() {
       });
       document.getElementById(targetId).classList.add('active');
       
+      // 如果切换到历史记录页面，刷新历史记录
+      if (targetId === 'history') {
+        loadHistoryList();
+      }
+      
       // 添加过渡动画
       document.getElementById(targetId).style.animation = 'none';
       setTimeout(() => {
@@ -119,7 +127,8 @@ function bindButtonEvents() {
   const startButton = document.querySelector('.start-interview');
   if (startButton) {
     startButton.addEventListener('click', () => {
-      showStartInterviewModal();
+      // 直接开始面试，不显示模态框
+      startInterview('默认面试', '默认职位', 'technical');
     });
   }
   
@@ -286,8 +295,11 @@ function endInterview() {
   // 关闭摄像头
   stopCamera();
   
-  // 生成面试报告
-  generateInterviewReport();
+  // 生成面试报告和洞察建议
+  updateInsightsAndRecommendations();
+  
+  // 保存报告到历史记录
+  saveReportToHistory();
   
   // 更新状态
   AppState.isInterviewing = false;
@@ -493,6 +505,91 @@ function generateInterviewReport() {
   
   // 示例：更新关键洞察和建议
   updateInsightsAndRecommendations();
+  
+  // 保存报告到历史记录
+  saveReportToHistory();
+}
+
+// 保存报告到历史记录
+function saveReportToHistory() {
+  if (!AppState.interviewData) return;
+  
+  console.log('保存面试报告到历史记录', AppState.interviewData);
+  
+  // 获取面试指标的平均值
+  const avgAttention = calculateAverage(AppState.interviewData.metrics.attention.map(item => item.value));
+  const avgNervousness = calculateAverage(AppState.interviewData.metrics.nervousness.map(item => item.value));
+  const avgConfidence = calculateAverage(AppState.interviewData.metrics.confidence.map(item => item.value));
+  
+  // 计算各项能力得分
+  const professionalKnowledge = Math.min(100, Math.max(60, avgAttention * 0.7 + avgConfidence * 0.3 + Math.random() * 5));
+  const skillMatch = Math.min(100, Math.max(60, avgAttention * 0.6 + avgConfidence * 0.4 - Math.random() * 10));
+  const languageExpression = Math.min(100, Math.max(60, avgConfidence * 0.8 + (100 - avgNervousness) * 0.2 + Math.random() * 5));
+  const logicalThinking = Math.min(100, Math.max(60, avgAttention * 0.8 + avgConfidence * 0.2 + Math.random() * 5));
+  const innovativeThinking = Math.min(100, Math.max(60, avgConfidence * 0.6 + avgAttention * 0.4 + Math.random() * 10));
+  const stressResistance = Math.min(100, Math.max(60, (100 - avgNervousness) * 0.8 + avgConfidence * 0.2 - Math.random() * 5));
+  
+  // 计算总分
+  const totalScore = Math.round((professionalKnowledge + skillMatch + languageExpression + logicalThinking + innovativeThinking + stressResistance) / 6);
+  
+  // 准备报告数据
+  const reportData = {
+    id: Date.now(), // 使用时间戳作为临时ID
+    title: AppState.interviewData.name,
+    position: AppState.interviewData.position,
+    interviewMode: AppState.interviewData.mode,
+    startTime: AppState.interviewStartTime,
+    endTime: new Date(),
+    duration: Math.floor((new Date() - AppState.interviewStartTime) / 1000 / 60), // 分钟
+    overallScore: totalScore,
+    scores: {
+      professionalKnowledge: Math.round(professionalKnowledge),
+      skillMatch: Math.round(skillMatch),
+      languageExpression: Math.round(languageExpression),
+      logicalThinking: Math.round(logicalThinking),
+      innovativeThinking: Math.round(innovativeThinking),
+      stressResistance: Math.round(stressResistance)
+    },
+    metrics: {
+      attention: avgAttention,
+      nervousness: avgNervousness,
+      confidence: avgConfidence
+    },
+    emotionData: AppState.interviewData.metrics.emotions,
+    createdAt: new Date()
+  };
+  
+  // 在实际应用中，这里将调用API将数据保存到后端数据库
+  // 示例代码，实际项目中需要替换成真实的API调用
+  if (window.fetch) {
+    // 模拟API保存操作
+    setTimeout(() => {
+      // 如果本地存储可用，将报告添加到本地存储中
+      if (window.localStorage) {
+        try {
+          // 获取现有历史记录
+          const historyData = JSON.parse(localStorage.getItem('interviewHistory') || '[]');
+          
+          // 添加新的报告
+          historyData.push(reportData);
+          
+          // 保存回本地存储
+          localStorage.setItem('interviewHistory', JSON.stringify(historyData));
+          
+          // 刷新历史记录显示（如果有实现该功能）
+          if (typeof updateHistoryList === 'function') {
+            updateHistoryList();
+          }
+          
+          console.log('已保存面试报告到本地存储');
+        } catch (error) {
+          console.error('保存到本地存储失败:', error);
+        }
+      }
+    }, 500);
+  }
+  
+  showNotification('面试报告已保存到历史记录', 'success');
 }
 
 // 更新关键洞察和建议
@@ -699,5 +796,157 @@ function collectEmotionData(emotion) {
   });
 }
 
-// 初始化应用
-document.addEventListener('DOMContentLoaded', initApp); 
+// 加载历史记录列表
+function loadHistoryList() {
+  const historyListContainer = document.querySelector('.history-list');
+  if (!historyListContainer) return;
+  
+  // 清空现有内容
+  historyListContainer.innerHTML = '';
+  
+  try {
+    // 从本地存储获取历史记录
+    const historyData = JSON.parse(localStorage.getItem('interviewHistory') || '[]');
+    
+    if (historyData.length === 0) {
+      historyListContainer.innerHTML = '<div class="empty-history">暂无面试记录</div>';
+      return;
+    }
+    
+    // 按照创建时间降序排序（最新的在前面）
+    historyData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    
+    // 渲染历史记录
+    historyData.forEach(report => {
+      const createdDate = new Date(report.createdAt);
+      const formattedDate = `${createdDate.getFullYear()}-${padZero(createdDate.getMonth() + 1)}-${padZero(createdDate.getDate())}`;
+      const formattedTime = `${padZero(createdDate.getHours())}:${padZero(createdDate.getMinutes())}`;
+      
+      const reportCard = document.createElement('div');
+      reportCard.className = 'history-card';
+      reportCard.innerHTML = `
+        <div class="history-card-header">
+          <h3>${report.title}</h3>
+          <span class="history-date">${formattedDate} ${formattedTime}</span>
+        </div>
+        <div class="history-card-content">
+          <div class="history-info">
+            <div class="history-info-item">
+              <span class="label">应聘职位:</span>
+              <span class="value">${report.position}</span>
+            </div>
+            <div class="history-info-item">
+              <span class="label">面试模式:</span>
+              <span class="value">${getInterviewModeName(report.interviewMode)}</span>
+            </div>
+            <div class="history-info-item">
+              <span class="label">持续时间:</span>
+              <span class="value">${report.duration}分钟</span>
+            </div>
+          </div>
+          <div class="history-score">
+            <div class="score-display">
+              <span class="score-value">${report.overallScore}</span>
+              <span class="score-label">总分</span>
+            </div>
+          </div>
+        </div>
+        <div class="history-card-footer">
+          <button class="history-view-btn" data-id="${report.id}">查看详情</button>
+          <button class="history-delete-btn" data-id="${report.id}">删除</button>
+        </div>
+      `;
+      
+      historyListContainer.appendChild(reportCard);
+    });
+    
+    // 绑定历史记录卡片的按钮事件
+    bindHistoryCardButtons();
+    
+  } catch (error) {
+    console.error('加载历史记录失败:', error);
+    historyListContainer.innerHTML = '<div class="error-message">加载历史记录失败</div>';
+  }
+}
+
+// 绑定历史记录卡片的按钮事件
+function bindHistoryCardButtons() {
+  // 查看详情按钮
+  document.querySelectorAll('.history-view-btn').forEach(button => {
+    button.addEventListener('click', (e) => {
+      const reportId = e.target.getAttribute('data-id');
+      viewHistoryReport(reportId);
+    });
+  });
+  
+  // 删除按钮
+  document.querySelectorAll('.history-delete-btn').forEach(button => {
+    button.addEventListener('click', (e) => {
+      const reportId = e.target.getAttribute('data-id');
+      deleteHistoryReport(reportId);
+    });
+  });
+}
+
+// 查看历史报告详情
+function viewHistoryReport(reportId) {
+  try {
+    // 从本地存储获取历史记录
+    const historyData = JSON.parse(localStorage.getItem('interviewHistory') || '[]');
+    
+    // 查找对应ID的报告
+    const report = historyData.find(item => item.id.toString() === reportId.toString());
+    
+    if (!report) {
+      showNotification('找不到指定的报告', 'error');
+      return;
+    }
+    
+    // TODO: 在此处实现查看报告详情的逻辑
+    // 可以创建一个模态框来显示详细内容
+    showNotification('查看报告详情功能将在未来版本中提供', 'info');
+    console.log('查看报告详情:', report);
+    
+  } catch (error) {
+    console.error('查看历史报告失败:', error);
+    showNotification('查看报告失败', 'error');
+  }
+}
+
+// 删除历史报告
+function deleteHistoryReport(reportId) {
+  try {
+    // 从本地存储获取历史记录
+    const historyData = JSON.parse(localStorage.getItem('interviewHistory') || '[]');
+    
+    // 过滤掉要删除的报告
+    const updatedData = historyData.filter(item => item.id.toString() !== reportId.toString());
+    
+    // 保存回本地存储
+    localStorage.setItem('interviewHistory', JSON.stringify(updatedData));
+    
+    // 刷新历史记录显示
+    loadHistoryList();
+    
+    showNotification('报告已删除', 'success');
+    
+  } catch (error) {
+    console.error('删除历史报告失败:', error);
+    showNotification('删除报告失败', 'error');
+  }
+}
+
+// 获取面试模式名称
+function getInterviewModeName(mode) {
+  const modeMap = {
+    'technical': '技术面试',
+    'hr': 'HR面试',
+    'comprehensive': '综合面试'
+  };
+  return modeMap[mode] || '未知';
+}
+
+// 补零
+function padZero(num) {
+  return num < 10 ? `0${num}` : num;
+} 

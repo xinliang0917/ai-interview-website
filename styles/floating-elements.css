@@ -1,0 +1,259 @@
+/**
+ * AI智能面试系统 - 悬浮高科技元素
+ * 添加未来感浮动装饰元素，提升界面科技感
+ */
+
+/* 创建浮动装饰容器 */
+.floating-elements {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* 基础浮动元素 */
+.floating-element {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(0, 208, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 208, 255, 0.3);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0);
+  animation: float-and-fade 15s ease-in-out infinite;
+}
+
+/* 创建多种不同的浮动元素 */
+.element-circle {
+  border-radius: 50%;
+  border: 1px solid rgba(0, 208, 255, 0.3);
+  background: transparent;
+  box-shadow: inset 0 0 15px rgba(0, 208, 255, 0.2);
+}
+
+.element-hex {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(135deg, rgba(0, 208, 255, 0.1) 0%, rgba(157, 0, 255, 0.1) 100%);
+  border-radius: 0;
+}
+
+.element-square {
+  border-radius: 4px;
+  transform: rotate(45deg);
+  background: rgba(0, 208, 255, 0.08);
+  border: 1px solid rgba(0, 208, 255, 0.2);
+}
+
+.element-ring {
+  border: 2px solid rgba(0, 208, 255, 0.4);
+  background: transparent;
+  box-shadow: 0 0 15px rgba(0, 208, 255, 0.2);
+}
+
+.element-dot {
+  width: 4px !important;
+  height: 4px !important;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 10px rgba(0, 208, 255, 0.8);
+}
+
+/* 创建未来科技装饰线 */
+.tech-decorator {
+  position: absolute;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(0, 208, 255, 0.1) 20%, 
+    rgba(0, 208, 255, 0.3) 50%, 
+    rgba(0, 208, 255, 0.1) 80%, 
+    transparent 100%);
+  height: 1px;
+  width: 200px;
+  opacity: 0.7;
+  animation: tech-line-glow 4s infinite alternate ease-in-out;
+}
+
+.tech-decorator::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 208, 255, 0.7);
+  box-shadow: 0 0 10px rgba(0, 208, 255, 0.8);
+  top: -3.5px;
+  animation: tech-dot-move 4s infinite alternate ease-in-out;
+}
+
+.tech-decorator.horizontal {
+  transform: translateY(-50%);
+}
+
+.tech-decorator.vertical {
+  transform: rotate(90deg) translateY(-50%);
+  transform-origin: left top;
+}
+
+/* 创建角落装饰元素 */
+.corner-decorator {
+  position: fixed;
+  width: 150px;
+  height: 150px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.corner-decorator::before,
+.corner-decorator::after {
+  content: '';
+  position: absolute;
+  background: rgba(0, 208, 255, 0.2);
+}
+
+.corner-decorator::before {
+  width: 2px;
+  height: 60%;
+  box-shadow: 0 0 10px rgba(0, 208, 255, 0.4);
+}
+
+.corner-decorator::after {
+  height: 2px;
+  width: 60%;
+  box-shadow: 0 0 10px rgba(0, 208, 255, 0.4);
+}
+
+.corner-decorator.top-left {
+  top: 0;
+  left: 0;
+}
+
+.corner-decorator.top-left::before {
+  top: 0;
+  left: 20px;
+}
+
+.corner-decorator.top-left::after {
+  top: 20px;
+  left: 0;
+}
+
+.corner-decorator.top-right {
+  top: 0;
+  right: 0;
+}
+
+.corner-decorator.top-right::before {
+  top: 0;
+  right: 20px;
+}
+
+.corner-decorator.top-right::after {
+  top: 20px;
+  right: 0;
+}
+
+.corner-decorator.bottom-left {
+  bottom: 0;
+  left: 0;
+}
+
+.corner-decorator.bottom-left::before {
+  bottom: 0;
+  left: 20px;
+}
+
+.corner-decorator.bottom-left::after {
+  bottom: 20px;
+  left: 0;
+}
+
+.corner-decorator.bottom-right {
+  bottom: 0;
+  right: 0;
+}
+
+.corner-decorator.bottom-right::before {
+  bottom: 0;
+  right: 20px;
+}
+
+.corner-decorator.bottom-right::after {
+  bottom: 20px;
+  right: 0;
+}
+
+/* 创建脉冲光晕 */
+.pulse-aura {
+  position: absolute;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid rgba(0, 208, 255, 0.3);
+  opacity: 0;
+  animation: pulse-ring 3s linear infinite;
+}
+
+/* 动画定义 */
+@keyframes float-and-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0);
+  }
+  20% {
+    opacity: 0.7;
+    transform: translateY(-30px) scale(1);
+  }
+  80% {
+    opacity: 0.7;
+    transform: translateY(-100px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120px) scale(0.8);
+  }
+}
+
+@keyframes tech-line-glow {
+  0% {
+    opacity: 0.3;
+    box-shadow: 0 0 5px rgba(0, 208, 255, 0.3);
+  }
+  100% {
+    opacity: 0.8;
+    box-shadow: 0 0 15px rgba(0, 208, 255, 0.5);
+  }
+}
+
+@keyframes tech-dot-move {
+  0% {
+    left: 0%;
+    box-shadow: 0 0 8px rgba(0, 208, 255, 0.6);
+  }
+  100% {
+    left: 100%;
+    box-shadow: 0 0 15px rgba(0, 208, 255, 0.9);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+  .floating-elements {
+    display: none;
+  }
+} 

@@ -1,0 +1,770 @@
+/**
+ * AI智能面试系统 - 高级简历布局样式
+ * 实现左右两栏排版的豪华简历效果，确保末尾对齐和视觉平衡
+ */
+
+/* 精致布局容器 */
+.profile-container {
+  display: flex;
+  gap: 2.5%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  min-height: calc(100vh - 180px);
+  background: rgba(12, 30, 64, 0.4);
+  border-radius: 15px;
+  padding: 35px 30px;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    0 0 80px rgba(111, 203, 250, 0.05) inset;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(111, 203, 250, 0.2);
+}
+
+/* 优化左右栏精确间距和布局 */
+.profile-left-column {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: relative;
+  padding-right: 25px;
+}
+
+.profile-right-column {
+  flex: 0 0 57.5%;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: relative;
+  padding-left: 30px;
+  border-left: 1px solid rgba(111, 203, 250, 0.2);
+}
+
+/* 精确调整末尾对齐区域 */
+.profile-left-column {
+  padding-bottom: 40px; /* 为末尾对齐留出空间 */
+}
+
+.profile-right-column {
+  padding-bottom: 40px; /* 为末尾对齐留出空间 */
+}
+
+/* 高级对齐标记定位 */
+.profile-column-end-marker {
+  position: absolute;
+  bottom: 15px;
+  z-index: 5;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: rgba(111, 203, 250, 0.7);
+  box-shadow: 0 0 15px rgba(111, 203, 250, 0.8), 0 0 5px #fff inset;
+}
+
+.profile-left-column .profile-column-end-marker {
+  right: -6px;
+}
+
+.profile-right-column .profile-column-end-marker {
+  left: -6px;
+}
+
+/* 美化对齐连接线 */
+.column-connector {
+  position: absolute;
+  bottom: 15px;
+  height: 1px;
+  background: rgba(111, 203, 250, 0.8);
+  z-index: 4;
+  box-shadow: 0 0 8px rgba(111, 203, 250, 0.5);
+}
+
+.left-connector {
+  right: 0;
+  width: 20%;
+  transform-origin: right center;
+}
+
+.right-connector {
+  left: 0;
+  width: 20%;
+  transform-origin: left center;
+}
+
+/* 超薄底部对齐线 */
+.profile-container::after {
+  content: '';
+  position: absolute;
+  bottom: 15px;
+  left: 30px;
+  right: 30px;
+  height: 1px;
+  background: linear-gradient(to right, 
+    transparent 5%, 
+    rgba(111, 203, 250, 0.4) 20%, 
+    rgba(111, 203, 250, 0.6) 50%,
+    rgba(111, 203, 250, 0.4) 80%,
+    transparent 95%
+  );
+  opacity: 0.7;
+  z-index: 1;
+}
+
+/* 对齐指示器优化 */
+.profile-align-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, 
+    rgba(111, 203, 250, 0.2),
+    rgba(111, 203, 250, 0.5) 50%,
+    rgba(111, 203, 250, 0.2)
+  );
+  border-radius: 0 0 15px 15px;
+  opacity: 0.7;
+  animation: align-indicator-glow 4s infinite ease-in-out;
+  z-index: 3;
+}
+
+/* 高级垂直间距管理 */
+.v-spacer-sm {
+  height: 10px;
+  flex: 0 0 auto;
+}
+
+.v-spacer-md {
+  height: 20px;
+  flex: 0 0 auto;
+}
+
+.v-spacer-lg {
+  height: 30px;
+  flex: 0 0 auto;
+  flex-grow: 1;
+}
+
+/* 弹性填充区优化，确保末尾对齐 */
+.flex-spacer {
+  flex: 1 1 auto;
+  min-height: 20px;
+}
+
+/* 高级节段容器布局 */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  border-radius: 12px;
+  padding: 25px;
+  background: rgba(12, 30, 64, 0.75);
+  border: 1px solid rgba(111, 203, 250, 0.25);
+  box-shadow: 
+    0 5px 15px rgba(0, 0, 0, 0.2), 
+    0 0 20px rgba(111, 203, 250, 0.05) inset;
+  transition: all 0.4s ease;
+}
+
+.profile-section:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(111, 203, 250, 0.08) inset;
+  border-color: rgba(111, 203, 250, 0.4);
+}
+
+/* 优化各类容器弹性布局 */
+#work-container, 
+#projects-container, 
+#certificates-container, 
+#internships-container, 
+#skills-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 高级容器空白填充 */
+#work-container:after, 
+#projects-container:after, 
+#internships-container:after, 
+#certificates-container:after,
+#skills-container:after {
+  content: '';
+  flex: 1 0 auto;
+  min-height: 15px;
+}
+
+/* 高级头像区域布局 */
+.profile-avatar-section {
+  text-align: center;
+  padding: 35px 20px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.profile-avatar {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid rgba(111, 203, 250, 0.4);
+  box-shadow: 
+    0 0 25px rgba(111, 203, 250, 0.4),
+    0 0 0 10px rgba(111, 203, 250, 0.05);
+  margin: 0 auto 25px;
+  position: relative;
+  z-index: 3;
+  background: radial-gradient(circle, rgba(30, 70, 120, 0.6), rgba(10, 25, 60, 0.9));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(225, 242, 255, 0.7);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.profile-avatar:before {
+  content: '点击上传';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.profile-avatar:hover:before {
+  opacity: 1;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.05);
+  border-color: rgba(111, 203, 250, 0.8);
+  box-shadow: 
+    0 0 35px rgba(111, 203, 250, 0.6),
+    0 0 0 12px rgba(111, 203, 250, 0.08);
+}
+
+/* 美化姓名标题区 */
+.profile-name-title {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  background: rgba(16, 42, 89, 0.4);
+  padding: 18px;
+  border-radius: 12px;
+  margin: 15px auto;
+  max-width: 85%;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(111, 203, 250, 0.15);
+}
+
+.profile-name {
+  font-size: 26px;
+  font-weight: 600;
+  color: #e1f2ff;
+  margin: 0;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 10px rgba(111, 203, 250, 0.3);
+}
+
+.profile-title {
+  font-size: 17px;
+  color: #6fcbfa;
+  margin: 5px 0;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* 精美联系信息样式 */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.contact-item {
+  padding: 12px 15px;
+  border-radius: 10px;
+  background: rgba(16, 42, 89, 0.3);
+  margin-bottom: 0;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(111, 203, 250, 0.1);
+  transition: transform 0.3s ease, background 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.contact-item:hover {
+  transform: translateX(5px);
+  background: rgba(16, 42, 89, 0.5);
+  border-color: rgba(111, 203, 250, 0.25);
+}
+
+.contact-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(111, 203, 250, 0.15);
+  border-radius: 50%;
+  color: #6fcbfa;
+  font-size: 16px;
+  box-shadow: 0 0 10px rgba(111, 203, 250, 0.2);
+  transition: all 0.4s ease;
+}
+
+.contact-item:hover .contact-icon {
+  background: rgba(111, 203, 250, 0.3);
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 0 15px rgba(111, 203, 250, 0.4);
+}
+
+/* 高级技能条样式 */
+.skill-item {
+  margin-bottom: 25px;
+  background: rgba(16, 42, 89, 0.3);
+  padding: 16px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 auto;
+  border-left: 3px solid rgba(111, 203, 250, 0.5);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-item:hover {
+  transform: translateX(5px);
+  background: rgba(16, 42, 89, 0.5);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.skill-name {
+  font-weight: 500;
+  color: #e1f2ff;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+.skill-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+}
+
+.skill-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2a89c1, #6fcbfa);
+  border-radius: 4px;
+  position: relative;
+  transition: width 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+  box-shadow: 0 0 8px rgba(111, 203, 250, 0.5);
+}
+
+/* 经历项样式优化 */
+.experience-item {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  flex: 0 0 auto;
+  transition: transform 0.3s ease;
+  border-bottom: 1px solid rgba(111, 203, 250, 0.1);
+}
+
+.experience-item:last-child {
+  flex: 0 0 auto;
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.experience-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(111, 203, 250, 0.8) 0%, rgba(111, 203, 250, 0.2) 100%);
+  border-radius: 2px;
+}
+
+.experience-item::after {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #6fcbfa;
+  box-shadow: 
+    0 0 0 3px rgba(111, 203, 250, 0.2),
+    0 0 10px rgba(111, 203, 250, 0.8);
+  z-index: 2;
+}
+
+.experience-item:hover {
+  transform: translateX(5px);
+}
+
+.experience-item:hover::after {
+  background: #e1f2ff;
+  box-shadow: 
+    0 0 0 4px rgba(111, 203, 250, 0.3),
+    0 0 15px rgba(111, 203, 250, 0.8);
+}
+
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.experience-title {
+  font-weight: 600;
+  color: #e1f2ff;
+  font-size: 17px;
+  letter-spacing: 0.5px;
+}
+
+.experience-subtitle {
+  color: #6fcbfa;
+  font-size: 15px;
+  margin-top: 5px;
+  opacity: 0.9;
+}
+
+.experience-date {
+  color: rgba(225, 242, 255, 0.7);
+  font-size: 14px;
+  white-space: nowrap;
+  background: rgba(111, 203, 250, 0.1);
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.experience-description {
+  color: rgba(225, 242, 255, 0.8);
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: 0.3px;
+}
+
+/* 区域标题样式优化 */
+.section-title {
+  color: #6fcbfa;
+  font-size: 20px;
+  margin-bottom: 22px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(111, 203, 250, 0.3);
+  position: relative;
+  text-shadow: 0 0 10px rgba(111, 203, 250, 0.3);
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #6fcbfa, transparent);
+  border-radius: 3px;
+  box-shadow: 0 0 8px rgba(111, 203, 250, 0.5);
+}
+
+/* 响应式布局高级优化 */
+@media (max-width: 992px) {
+  .profile-container {
+    flex-direction: column;
+    padding: 25px 20px;
+  }
+  
+  .profile-left-column,
+  .profile-right-column {
+    flex: none;
+    width: 100%;
+    padding: 0;
+  }
+  
+  .profile-right-column {
+    border-left: none;
+    border-top: 1px solid rgba(111, 203, 250, 0.2);
+    margin-top: 15px;
+    padding-top: 25px;
+  }
+  
+  .profile-avatar-section {
+    padding: 20px 15px;
+  }
+  
+  .profile-section {
+    padding: 20px;
+  }
+  
+  .profile-column-end-marker,
+  .column-connector {
+    display: none;
+  }
+  
+  .profile-align-indicator {
+    display: none;
+  }
+  
+  .profile-container::after {
+    display: none;
+  }
+}
+
+/* 平板和手机优化 */
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 20px 15px;
+  }
+  
+  .profile-section {
+    padding: 18px 15px;
+  }
+  
+  .profile-avatar {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .profile-name {
+    font-size: 22px;
+  }
+  
+  .experience-item {
+    padding-left: 18px;
+  }
+  
+  .section-title {
+    font-size: 18px;
+  }
+  
+  .skill-item,
+  .contact-item {
+    padding: 12px;
+  }
+}
+
+/* 特殊动画添加 */
+@keyframes section-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile.active .profile-section {
+  animation: section-reveal 0.5s ease forwards;
+}
+
+/* 为每个section设置延迟动画 */
+.profile.active .profile-section:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.profile.active .profile-section:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.profile.active .profile-section:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.profile.active .profile-section:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.profile.active .profile-section:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+/* 简历技能进度条动画 */
+@keyframes skill-fill {
+  0% { width: 0; }
+  100% { width: var(--skill-width); }
+}
+
+.profile.active .skill-fill {
+  --skill-width: 0%;
+  animation: skill-fill 1.2s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  animation-delay: 0.8s;
+}
+
+/* 技能条闪光效果 */
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.skill-fill:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.3) 50%, 
+    transparent 100%);
+  opacity: 0.6;
+  animation: shine 2s infinite;
+}
+
+/* 平衡两侧布局视觉权重 */
+.profile-left-column .profile-section {
+  border-right: 3px solid rgba(111, 203, 250, 0.15);
+}
+
+.profile-right-column .profile-section {
+  border-left: 3px solid rgba(111, 203, 250, 0.15);
+}
+
+/* 末端对齐标记弹跳动画 */
+@keyframes bounce-glow {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow: 0 0 10px rgba(111, 203, 250, 0.6);
+  }
+  50% {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(111, 203, 250, 0.8);
+  }
+}
+
+.profile-column-end-marker {
+  animation: bounce-glow 3s infinite ease-in-out;
+}
+
+.profile-left-column .profile-column-end-marker {
+  animation-delay: 0;
+}
+
+.profile-right-column .profile-column-end-marker {
+  animation-delay: 1.5s;
+}
+
+/* 打印样式优化 */
+@media print {
+  .profile-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2%;
+    background: white !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0.5cm !important;
+  }
+  
+  .profile-section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    background: white !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+  
+  .profile-left-column {
+    width: 38% !important;
+    flex: none !important;
+  }
+  
+  .profile-right-column {
+    width: 58% !important;
+    flex: none !important;
+    border-left: 1px solid #ddd !important;
+  }
+  
+  .profile-left-column::after,
+  .profile-align-indicator,
+  .column-connector,
+  .profile-column-end-marker {
+    display: none !important;
+  }
+  
+  .skill-fill {
+    background: #3388cc !important;
+    width: var(--skill-width) !important;
+    animation: none !important;
+  }
+  
+  .skill-fill:after {
+    display: none !important;
+  }
+  
+  .experience-item::before {
+    background: #ddd !important;
+  }
+  
+  .experience-item::after {
+    background: #3388cc !important;
+    box-shadow: none !important;
+  }
+  
+  .section-title {
+    color: #3388cc !important;
+    border-bottom-color: #ddd !important;
+    text-shadow: none !important;
+  }
+  
+  .section-title::after {
+    background: #3388cc !important;
+    box-shadow: none !important;
+  }
+  
+  .profile-name {
+    color: #333 !important;
+    text-shadow: none !important;
+  }
+  
+  .profile-title {
+    color: #3388cc !important;
+  }
+  
+  @page {
+    size: A4;
+    margin: 1cm;
+  }
+}

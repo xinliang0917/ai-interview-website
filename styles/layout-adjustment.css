@@ -1,0 +1,73 @@
+/**
+ * 布局调整 - 优化页面显示效果
+ * 使情绪分析、面试摄像头、语音分析和竞争力分析同时显示
+ */
+
+/* 面试网格布局优化 */
+.interview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.8fr 1fr; /* 保持三列布局 */
+  grid-template-rows: auto; 
+  gap: 0.5rem; /* 进一步减小间距 */
+  margin-bottom: 0.4rem; /* 减小下边距 */
+  height: calc(100vh - 24rem); /* 减小高度，为竞争力分析留出空间 */
+}
+
+/* 情绪变化趋势卡片 - 减少高度 */
+.emotion-trend {
+  max-height: calc(100vh - 24rem);
+}
+
+/* 视频容器高度调整 */
+.video-wrapper {
+  min-height: 240px; /* 减小最小高度 */
+}
+
+/* 语音分析卡片高度调整 */
+.speech-analysis {
+  max-height: calc(100vh - 24rem);
+}
+
+/* 竞争力分析上移和压缩 */
+.competitive-analysis {
+  margin-top: -0.5rem; /* 向上移动 */
+  position: relative;
+  z-index: 5;
+}
+
+/* 竞争力分析卡片内部调整 */
+.analysis-card {
+  padding: 0.6rem; /* 减少内边距 */
+}
+
+.analysis-card h3 {
+  margin-bottom: 0.5rem; /* 减少标题下边距 */
+  font-size: 0.95rem; /* 略微减小标题字体 */
+}
+
+/* 分析内容布局调整 */
+.analysis-content {
+  gap: 0.6rem; /* 减少间距 */
+}
+
+/* 调整雷达图包装器 */
+.radar-chart-wrapper {
+  min-height: 220px; /* 设置最小高度 */
+  max-height: 240px; /* 设置最大高度 */
+}
+
+/* 指标行间距调整 */
+.metric-row {
+  gap: 0.6rem; /* 减少间距 */
+  margin-bottom: 0.2rem; /* 减少行间距 */
+}
+
+/* 指标项目调整 */
+.metric-item {
+  margin-bottom: 0.3rem; /* 减少间距 */
+}
+
+/* 调整面试总结区域 */
+.interview-summary {
+  margin-top: 0.5rem; /* 调整总结区域的上边距 */
+} 

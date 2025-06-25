@@ -1,0 +1,338 @@
+/**
+ * AI智能面试系统 - 高级微交互效果
+ * 专注于增强系统的动画和交互细节
+ */
+
+/* ===== 精细交互与反馈效果 ===== */
+
+/* 按钮点击波纹效果 */
+.header-controls button,
+.navigation a,
+.confirm-btn,
+.cancel-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.header-controls button::after,
+.navigation a::after,
+.confirm-btn::after,
+.cancel-btn::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform 0.4s, opacity 0.8s;
+}
+
+.header-controls button:active::after,
+.navigation a:active::after,
+.confirm-btn:active::after,
+.cancel-btn:active::after {
+  transform: scale(0, 0);
+  opacity: 0.3;
+  transition: 0s;
+}
+
+/* 波纹效果 */
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* 高亮状态 */
+.highlight {
+  color: #fff !important;
+  text-shadow: 0 0 15px rgba(0, 208, 255, 1) !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* 卡片轻微倾斜效果 */
+.card {
+  transition: transform 0.4s var(--elastic-animation), box-shadow 0.4s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02) rotateX(2deg) rotateY(-2deg);
+}
+
+/* 标题元素微交互 */
+.card h3,
+.page-title h2 {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.card:hover h3,
+.page-title:hover h2 {
+  transform: translateY(-2px);
+  letter-spacing: 1px;
+}
+
+.card:hover h3::after,
+.page-title:hover h2::after {
+  width: 70px;
+  opacity: 0.9;
+}
+
+/* 视频区域交互效果 */
+.detection-box {
+  transition: all 0.3s ease;
+}
+
+.video-container:hover .detection-box {
+  border-color: rgba(0, 208, 255, 0.8);
+  box-shadow: 0 0 25px rgba(0, 208, 255, 0.5);
+}
+
+.video-container:hover .scan-line {
+  opacity: 1;
+  height: 4px;
+  box-shadow: 0 0 20px rgba(0, 208, 255, 0.9);
+}
+
+/* 指标值交互效果 */
+.metric-value {
+  transition: all 0.3s ease;
+}
+
+.metric:hover .metric-value {
+  transform: scale(1.1);
+  letter-spacing: 0.5px;
+}
+
+/* 进度条交互 */
+.progress {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.progress-bar:hover .progress {
+  transform: scaleY(1.2);
+}
+
+/* 图表交互效果 */
+.chart-container {
+  transition: all 0.5s var(--elastic-animation);
+}
+
+.chart-container:hover {
+  transform: translateY(-5px) scale(1.01);
+}
+
+.chart-container:hover::after {
+  opacity: 0.8;
+  animation-duration: 30s;
+}
+
+/* 雷达图元素交互 */
+#radar-chart,
+#competitive-radar-chart {
+  transition: all 0.5s ease;
+}
+
+.radar-chart-container:hover #radar-chart,
+.radar-chart-wrapper:hover #competitive-radar-chart {
+  transform: scale(1.03);
+  filter: drop-shadow(0 0 15px rgba(0, 208, 255, 0.4));
+}
+
+/* 导航菜单交互 */
+.navigation li {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.navigation li::before {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background: var(--accent-color);
+  transform: translateX(-50%);
+  transition: width 0.3s var(--elastic-animation), opacity 0.3s ease;
+  opacity: 0;
+}
+
+.navigation li:hover::before {
+  width: 60%;
+  opacity: 0.7;
+}
+
+.navigation li.active::before {
+  width: 80%;
+  opacity: 1;
+  height: 2px;
+  box-shadow: 0 0 8px rgba(0, 208, 255, 0.6);
+}
+
+/* 焦点输入框效果 */
+input:focus,
+textarea:focus,
+select:focus {
+  transition: all 0.3s ease;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(0, 208, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* 滚动指示器 */
+.scroll-indicator {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(10, 18, 50, 0.6);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+  cursor: pointer;
+  border: 1px solid rgba(0, 208, 255, 0.3);
+  z-index: 100;
+}
+
+.scroll-indicator.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-indicator::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid rgba(0, 208, 255, 0.8);
+  border-top: 2px solid rgba(0, 208, 255, 0.8);
+  transform: rotate(-45deg) translateY(2px);
+}
+
+.scroll-indicator:hover {
+  background: rgba(10, 18, 50, 0.8);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 208, 255, 0.3);
+}
+
+.scroll-indicator:hover::before {
+  border-color: rgba(0, 208, 255, 1);
+  box-shadow: 0 0 5px rgba(0, 208, 255, 0.8);
+}
+
+/* 数据更新动画 */
+@keyframes data-update {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.metric-value.updating {
+  animation: data-update 0.7s var(--elastic-animation);
+}
+
+/* 通知提示闪光 */
+@keyframes notification-glow {
+  0% {
+    box-shadow: 0 0 5px rgba(0, 208, 255, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(0, 208, 255, 0.8), 0 0 25px rgba(0, 208, 255, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(0, 208, 255, 0.5);
+  }
+}
+
+.notification-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  animation: notification-glow 2s infinite ease-in-out;
+}
+
+/* 页面切换过渡 */
+.dashboard,
+.history,
+.settings,
+.profile {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s var(--elastic-animation);
+}
+
+.dashboard.active,
+.history.active,
+.settings.active,
+.profile.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 模态框弹出效果增强 */
+.modal {
+  transition: all 0.5s var(--elastic-animation);
+}
+
+.modal.active .modal-content {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.modal-content {
+  transition: all 0.5s var(--elastic-animation);
+  transform: translateY(-50px) scale(0.95);
+  opacity: 0;
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .card:hover {
+    transform: translateY(-5px) scale(1.01);
+  }
+  
+  .scroll-indicator {
+    bottom: 20px;
+    right: 20px;
+  }
+} 
